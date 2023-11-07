@@ -1,14 +1,16 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <iostream>
+#include "GameObject.h"
 
 
 
 
 //temporaire
-struct GameObjects {
+/*struct GameObjects {
 	sf::RectangleShape rectangle;
 	sf::FloatRect collider;
+	
 
 	GameObjects(sf::Vector2f size, sf::Vector2f position) {
 		rectangle.setSize(size);
@@ -20,7 +22,7 @@ struct GameObjects {
 		rectangle.move(velocity);
 		collider = rectangle.getGlobalBounds();
 	}
-};
+};*/
 //temporaire
 
 int main()
@@ -59,87 +61,72 @@ int main()
    // Quads[2].color = sf::Color::Red;
 	//Quads[3].color = sf::Color::Blue;
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-	GameObjects object1(sf::Vector2f(100, 50), sf::Vector2f(100, 100));
-	GameObjects object2(sf::Vector2f(80, 80), sf::Vector2f(100, 200));
-
-
-	GameObjects windowRect(sf::Vector2f(1080, 1080), sf::Vector2f(0, 0));
-
-	sf::Vector2f velocity1(1.0f, 0.0f); // Vecteur de déplacement du premier rectangle
-	sf::Vector2f velocity2(0.0f, -2.0f); // Vecteur de déplacement du deuxième rectangle
-
-
-
-
-
-
-
-
-
-
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//sf::CircleShape octagon(80.f,6); -------------- Size + Form
 	//octagon.setFillColor(sf::Color::White); -------------- Color
 	//octagon.setPosition(50,50);-------------- Position
 
-	while (window.isOpen())
-	{
-		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
 
-			//object1.move(velocity1);
-			object2.move(velocity2);
-
-			sf::Vector2f object2Position = object2.rectangle.getPosition();
-			if (object2.collider.intersects(object1.collider)) {
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	/*
+	GameObjects object1(sf::Vector2f(100, 50), sf::Vector2f(100, 100));
+	GameObjects object2(sf::Vector2f(80, 50), sf::Vector2f(100, 200));
 
 
-				//sf::Vector2f velocity2(0.0f, 1.0f);
-				//object2.move(velocity2);
-				velocity2 = -velocity2;
-				printf("Coucou \n");
+	GameObjects windowRect(sf::Vector2f(1080, 1080), sf::Vector2f(0, 0));
+	*/
+	
+
+
+		GameObject circle;
+		circle.drawcircle(30);
+		circle.setPosition(100, 50);
+		sf::Vector2f velocity(2.0f, 1.0f);  // Vitesse initiale du cercle
+
+		std::vector<sf::FloatRect> rectanglesVector;
+		sf::FloatRect rect1(100, 200, 50, 50);  
+		sf::FloatRect rect2(300, 400, 60, 60); 
+		rectanglesVector.push_back(rect1);
+		rectanglesVector.push_back(rect2);
+
+		while (window.isOpen()) {
+			sf::Event event;
+			while (window.pollEvent(event)) {
+				if (event.type == sf::Event::Closed)
+					window.close();
 			}
 
-			else if (!windowRect.collider.contains(object2Position))//object2.collider.intersects(windowRect.getGlobalBounds()))
-			{
-				velocity2 = -velocity2;
-				printf("coucou 2 \n");
+			// Mettez à jour la position du cercle en fonction de sa vitesse
+			circle.move(velocity);
 
-			}
+			// Vérifiez les collisions avec les bords de la fenêtre
+			circle.checkCollisionWithBounds(window.getSize());
+	
+			circle.move(velocity);
+			// Vérifiez les collisions avec les rectangles
+			/*for (const sf::FloatRect& rect : rectanglesVector) {
+				if (circle.checkCollisionWithRect(rect)) {
+					// Réagissez à la collision avec le rectangle
+					// Par exemple, inversez la direction du cercle
+					velocity.x = -velocity.x;
+					velocity.y = -velocity.y;
+				}
+			}*/
+
 			window.clear();
-			window.draw(object1.rectangle);
-			window.draw(object2.rectangle);
-			window.display();
 
+			// Dessinez les rectangles
+			for (const sf::FloatRect& rect : rectanglesVector) {
+				sf::RectangleShape rectangle;
+				rectangle.setSize(sf::Vector2f(rect.width, rect.height));
+				rectangle.setPosition(rect.left, rect.top);
+				window.draw(rectangle);
+			}
+
+			// Dessinez le cercle
+			window.draw(circle.getCircle());
+			window.display();
 		}
 
-
-		// rectangle.setRotation(sf::Mouse::getPosition().x); //--------------- Rotate
-
-		 //rectangle.setPosition(sf::Mouse::getPosition().x - 428, sf::Mouse::getPosition().y - 31);// ------------ Mouse Position rect
-
-		// window.draw(rectangle);
-		// window.draw(Quads);
-
-		 //window.draw(octagon);
-
-
-
-		 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
+		return 0;
 	}
-
-	return 0;
-
-}
