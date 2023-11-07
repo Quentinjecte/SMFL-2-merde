@@ -8,16 +8,14 @@ GameObject::~GameObject() {
     // Lib�ration des ressources, si n�cessaire
 }
 
-void GameObject::draw(sf::RenderWindow& window)
-{
-}
-
 void GameObject::update(float deltaTime)
 {
 }
 
-void GameObject::move(float x, float y)
+void GameObject::move(const sf::Vector2f& velocity)
 {
+    //circle.move(velocity);
+    //collider = circle.getGlobalBounds();
 }
 
 void GameObject::rotate(float angle)
