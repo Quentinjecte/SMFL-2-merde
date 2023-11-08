@@ -5,15 +5,10 @@
 #include <stdlib.h>
 
 
-
-//temporaire
-
-//temporaire
-
 int main()
 {
 
-    int _fw = 720;
+    int _fw = 1080;
     int _fh = 720;
     int _h = 150;
     int _w = 50;
@@ -28,15 +23,9 @@ int main()
     sf::Vector2i center(_fw / 2, _fh / 2);
     sf::Mouse::setPosition(center, window);
 
-    rectangle.setPosition(_fw / 2 ,_fh);
-    rectangle.setOrigin(0, _w/2);
+    rectangle.setPosition(_fw / 2, _fh);
+    rectangle.setOrigin(0, _w / 2);
 
-    sf::VertexArray Quads(sf::Quads, 4);
-
-    Quads[0].position = sf::Vector2f(0, 700);
-    Quads[1].position = sf::Vector2f(0, 800);
-    Quads[2].position = sf::Vector2f(800, 800);
-    Quads[3].position = sf::Vector2f(800, 700);
 
 
 
@@ -49,29 +38,28 @@ int main()
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+                window.close();
         }
-
-
 
         // Obtenir la position de la souris
-        float angle = static_cast<float>(sf::Mouse::getPosition().y); // Convertir la position X de la souris en un angle
+        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
 
-        rectangle.setRotation(angle); // Définir la rotation du rectangle en fonction de l'angle
+        // Calculer l'angle entre le centre du rectangle et la position de la souris
+        sf::Vector2f rectangleCenter = rectangle.getPosition() + sf::Vector2f(rectangle.getSize().x / 2, 0);
+        sf::Vector2f direction = sf::Vector2f(mousePosition) - rectangleCenter;
+        float angle = atan2(direction.y, direction.x) * 180 / 3.14159265;
+
+        // Définir la rotation du rectangle en fonction de l'angle
+        rectangle.setRotation(angle);
 
         window.clear();
-        window.draw(Quads);
         window.draw(rectangle);
-        if (timer == 25)
-        {
-            Quads[0].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-            Quads[1].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-            Quads[2].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-            Quads[3].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-            timer = 0;
-        }
+
         if (timer == 100)
         {
             std::cout << "Rotation du rectangle : " << angle << std::endl;
+            //std::cout << "Position cursor : " << localPosition.x << " ; " << localPosition.y << std::endl;
             timer = 0;
         }
 
@@ -82,3 +70,32 @@ int main()
 
     return 0;
 }
+
+//sf::VertexArray Quads(sf::Quads, 4);
+//
+//Quads[0].position = sf::Vector2f(0, _fh - 20);
+//Quads[1].position = sf::Vector2f(0, _fh + 80);
+//Quads[2].position = sf::Vector2f(_fw + 80, _fh + 80);
+//Quads[3].position = sf::Vector2f(_fw + 80, _fh - 20);
+
+//window.draw(Quads);
+
+//sf::Texture texture;
+//if (texture.loadFromFile("./pixil.png")) {
+//    rectangle.setTexture(&texture);
+//}
+
+//if (timer == 25)
+//{
+//    Quads[0].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+//    Quads[1].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+//    Quads[2].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+//    Quads[3].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+//}
+//if (timer == 75)
+//{
+//    Quads[0].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+//    Quads[1].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+//    Quads[2].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+//    Quads[3].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
+//}
