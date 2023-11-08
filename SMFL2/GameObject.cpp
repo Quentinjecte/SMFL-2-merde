@@ -1,4 +1,4 @@
-﻿#include "GameObject.h"
+﻿#include "./GameObject.h"
 
 GameObject::GameObject() {
     // Initialisation de sprite, texture, velocity, acceleration, etc.
