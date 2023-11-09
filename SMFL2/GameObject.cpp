@@ -4,9 +4,11 @@
 GameObject::GameObject() {
     // Initialisation de sprite, texture, velocity, acceleration, etc.
     circle.setRadius(0.0f);
+    circle.setOutlineThickness(10.f);
+    circle.setOutlineColor(sf::Color(250, 150, 100));
     rectangle.setSize(sf::Vector2f(0.0f, 0.0f));
 
-    circleCollider = circle.getGlobalBounds();
+   // circleCollider = circle.getGlobalBounds();
     rectangleCollider = rectangle.getGlobalBounds();
 
     rectanglesVector = rectanglesVector;
@@ -20,7 +22,7 @@ GameObject::~GameObject() {
 void GameObject::drawcircle(float radius)
 {
     circle.setRadius(radius);
-    circleCollider = circle.getGlobalBounds();
+   // circleCollider = circle.getGlobalBounds();
 }
 
 void GameObject::drawrectangle()
@@ -37,8 +39,8 @@ void GameObject::update(float deltaTime)
 void GameObject::move(sf::Vector2f& velocity)
 {
     circle.move(velocity);
-    circleCollider = circle.getGlobalBounds();
-    circleCollider.left += velocity.x;
+   // circleCollider = circle.getGlobalBounds();
+    //circleCollider.left += velocity.x;
     //circleCollider.top += velocity.y;
 
 }
@@ -75,33 +77,22 @@ void GameObject::checkCollisionWithRect(std::vector<sf::FloatRect>& rectanglesVe
 {
     for (const sf::FloatRect& rect : rectanglesVector)
     {
+
+        float incidentAngle = std::atan2(velocity.y, velocity.x) * (180.0f / 3.14159265f);
+        float reflectionAngle = 180.0f - incidentAngle;
+        float newRadians = reflectionAngle * (3.14159265f / 180.0f);
+
         if (circle.getGlobalBounds().intersects(rect))
         {
-            float overlapX = circle.getPosition().x - std::max(rect.left, std::min(circle.getPosition().x, rect.left + rect.width));
-            float overlapY = circle.getPosition().y - std::max(rect.top, std::min(circle.getPosition().y, rect.top + rect.height));
-
-            if (std::abs(overlapX) < std::abs(overlapY))
-            {
-                velocity.x = -velocity.x;
-
-                if (overlapX > 0) {
-                    circle.move(overlapX, 0);
-                }
-                else {
-                    circle.move(-overlapX, 0);
-                }
-            }
-            else
-            {
-                velocity.y = -velocity.y;
-
-                if (overlapY > 0) {
-                    circle.move(0, overlapY);
-                }
-                else {
-                    circle.move(0, -overlapY);
-                }
-            }
+            velocity.x = 7.f * (std::cos(newRadians)+0.1f);
+            std::cout << "velocity " << velocity.x << " cos " << std::cos(newRadians) << std::endl;
+            velocity.y = 4.f * (std::sin(newRadians)+0.1f);
+            std::cout << "velocity " << velocity.y << " sin " << std::sin(newRadians) << std::endl;
+            if (velocity.x < 1)
+                velocity.x = 1;
+            if (velocity.y < 1)
+                velocity.y = 1;
+            
         }
     }
 }

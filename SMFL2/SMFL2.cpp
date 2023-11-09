@@ -10,18 +10,28 @@ int main()
 
     GameObject circle;
     //circle.getCircleCollider();
-    circle.drawcircle(30);
+    circle.drawcircle(10);
     circle.setPosition(100, 50);
-    sf::Vector2f velocity(3.0f, 2.0f);
 
-    sf::FloatRect rectangle(100, 200, 100, 100);
-    sf::FloatRect rectangle2(500, 500, 100, 100);
+    
+    sf::Vector2f velocity(7.0f, 4.0f);
 
+    sf::FloatRect rectangle(100, 150, 100, 50);
+    sf::FloatRect rectangle2(500, 500, 100, 50);
+    sf::FloatRect rectangle3(300, 700, 100, 50);
+    //sf::FloatRect rectangle4(900, 850, 100, 50);
+    sf::FloatRect rectangle5(200, 600, 100, 100);
+    
 
    std::vector<sf::FloatRect> rectanglesVector;
    rectanglesVector.push_back(rectangle);
    rectanglesVector.push_back(rectangle2);
-   sf::Vector2f capt(velocity*2.f);
+   rectanglesVector.push_back(rectangle3);
+ //  rectanglesVector.push_back(rectangle4);
+   rectanglesVector.push_back(rectangle5);
+
+
+
   
 
 
