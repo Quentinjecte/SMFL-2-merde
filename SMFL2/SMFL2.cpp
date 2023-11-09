@@ -7,24 +7,21 @@
 
 int main()
 {
-    std::cout << GameObject::_Fh
+    GameObject gameObj;
+    //std::cout << GameObject::_Fh
 
-        int timer = 0;
-
-    while (window.isOpen())
+    while (gameObj.getWindow().isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        while (gameObj.getWindow().isOpen())
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-                window.close();
+            gameObj.handleEvents();
+
+            // Reste du code...
         }
 
 
-        window.clear();
-        window.draw();
+        gameObj.getWindow().clear();
+        gameObj.getWindow().draw();
 
         //if (timer == 100)
         //{
@@ -33,9 +30,8 @@ int main()
         //    timer = 0;
         //}
 
-        timer += 1;
 
-        window.display();
+        gameObj.getWindow().display();
     }
 
     return 0;

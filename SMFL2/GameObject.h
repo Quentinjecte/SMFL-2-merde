@@ -40,13 +40,15 @@ public:
 
 	const sf::FloatRect& getRectangleCollider() const;
 
+	const sf::RenderWindow& getWindow() const;
+
 	float getRadius() const;
 
 	void setCircle(const sf::CircleShape& newCircle);
 
 	void setVelocity();
 
-
+	void handleEvents();
 
 protected:
 
@@ -61,8 +63,6 @@ protected:
 
 	sf::FloatRect circleCollider; // Colliders pour les formes
 	sf::FloatRect rectangleCollider;
-
-
 
 };
 

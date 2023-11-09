@@ -4,18 +4,33 @@ GameObject::GameObject() {
     // Initialisation de sprite, texture, velocity, acceleration, etc.
 
     window.create(sf::VideoMode(_Fw, _Fh), "Ta mere ");
+    window.setFramerateLimit(60);
+
     circle.setRadius(0.0f);
     rectangle.setSize(sf::Vector2f(0.0f, 0.0f));
 
     circleCollider = circle.getGlobalBounds();
     rectangleCollider = rectangle.getGlobalBounds();
-    window.setFramerateLimit(60);
-
 }
 
 GameObject::~GameObject()
 {
     // Lib�ration des ressources, si n�cessaire
+}
+
+const sf::RenderWindow& GameObject::getWindow() const {
+    return window;
+}
+
+void GameObject::handleEvents() {
+    sf::Event event;
+    while (window.pollEvent(event))
+    {
+        if (event.type == sf::Event::Closed)
+            window.close();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+            window.close();
+    }
 }
 
 void GameObject::drawcircle(float radius)
@@ -57,7 +72,7 @@ void GameObject::rotate(float angle)
     rectangle.setOutlineColor(sf::Color(145, 0, 0, 255));
 
     // Obtenir la position de la souris
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(getWindow());
 
     // Calculer l'angle entre le centre du rectangle et la position de la souris
     sf::Vector2f rectangleCenter = rectangle.getPosition() + sf::Vector2f(rectangle.getSize().x / 2, 0);
