@@ -15,12 +15,10 @@ int main()
     window.create(sf::VideoMode(_Fw, _Fh), "Ta mere ");
     window.setFramerateLimit(60);
 
-    GameObject oRect1(_Fw / 2, 100, 500, 500, sf::Color::Red);
+    GameObject oRect1(_Fw / 2, _Fh, 75, 25, sf::Color::Red);
     //GameObject oRect2(50, 100, 100, 20, sf::Color::Green);
     //GameObject oRect3(100, 200, 100, 20, sf::Color::Green);
-    //GameObject oCircle1(500, 500, 50, sf::Color::Yellow);
-
-    sf::RectangleShape rect;
+    GameObject oCircle1(500, 500, 50, sf::Color::Yellow);
 
     while (window.isOpen())
     {
@@ -36,9 +34,10 @@ int main()
 
         //DRAW
         window.clear();
-
+        //oRect1.draw(window);
         //window.draw(oCircle1.circle);
-        window.draw(*oRect1.Forms);
+        oRect1.draw(window);
+        oCircle1.draw(window);
         //window.draw(oRect2.rectangle);
         //window.draw(oRect3.rectangle);
         /*
@@ -52,11 +51,6 @@ int main()
 
     return 0;
 }
-
-
-
-
-
 
 //sf::VertexArray Quads(sf::Quads, 4);
 //

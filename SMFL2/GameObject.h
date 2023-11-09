@@ -4,8 +4,7 @@
 
 class GameObject
 {
-public:
-
+private:
 	int x;
 	int y;
 	int h;
@@ -14,11 +13,14 @@ public:
 
 	sf::Shape* Forms;
 
+public:
+
+
 	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle
 	GameObject(int _x, int _y, float _r, sf::Color); //circle
 	~GameObject();
 
-	void draw();
+	void draw(sf::RenderWindow& window);
 
 	void drawcircle(float radius);
 

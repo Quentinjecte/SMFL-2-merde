@@ -4,16 +4,17 @@ GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color)
 {
 
     Forms = new sf::RectangleShape(sf::Vector2f(_w, _h));
-
+    Forms->setPosition(_x, _y);
     //circle.setRadius(0.0f);
-    draw();
+    //draw();
     //circleCollider = circle.getGlobalBounds();
     //rectangleCollider = rectangle.getGlobalBounds();
 }
 
 GameObject::GameObject(int _x, int _y, float _r, sf::Color)
 {
-    //Forms = new sf::CircleShape(sf::Vector2f(_r));
+    Forms = new sf::CircleShape(_r);
+    Forms->setPosition(_x, _y);
 
     //circle.setRadius(0.0f)
     //draw();
@@ -27,16 +28,10 @@ GameObject::~GameObject()
 }
 
 
-void GameObject::draw()
+void GameObject::draw(sf::RenderWindow& window)
 {
-    //Set le rect : pos/size/color
-    Forms->setPosition(sf::Vector2f(50, 50));
-    //Forms->scale(50, 50);
-    //Forms->setFillColor(sf::Color(155, 55, 155, 255));
+    window.draw(*Forms);
 
-    //circle.getRadius(sf::Vector2f(_radius));
-    //circle.setFillColor(sf::Color(155,50,155,255));
-    //circle.setPosition(sf::Vector2f(_x, _y));
 }
 
 /*
