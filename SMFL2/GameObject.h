@@ -1,28 +1,41 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class GameObject
 {
+private:
+	int x;
+	int y;
+	int h;
+	int w;
+	int a, r, g, b;
+
+	sf::Shape* Forms;
+
+	float angle;
+
+	sf::Vector2f velocity;
+
 public:
-	GameObject();
+
+
+	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle
+	GameObject(int _x, int _y, float _r, sf::Color); //circle
 	~GameObject();
 
+	void draw(sf::RenderWindow& window);
 
 	void draw(sf::RenderWindow& window);
 	void update(float deltaTime);
-	void move(float x, float y);
-	void rotate(float angle);
-	bool checkCollision(const GameObject& other);
 
-	sf::Vector2f getPosition() const;
-	void setPosition(float x, float y);
+	void move(const sf::Vector2f& velocity);
 
+	void rotate(sf::RenderWindow& window);
 
+	void checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
 
-protected:
-	sf::Sprite sprite;
-	sf::Texture texture;
-	sf::Vector2f velocity;
-	sf::Vector2f acceleration;
+	void setVelocity();
+
 };
 
