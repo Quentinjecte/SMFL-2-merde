@@ -18,7 +18,9 @@ public:
 	GameObject(int _x, int _y, float _r, sf::Color); //circle
 	~GameObject();
 
-	void draw();
+	void draw(sf::RenderWindow& window);
+
+	//void draw();
 
 	void drawcircle(float radius);
 
@@ -30,7 +32,9 @@ public:
 	void rotate();
 	void checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
 
-	void checkCollisionWithRect(std::vector<sf::FloatRect>& rectanglesVector, sf::Vector2f& velocity);
+	void checkCollisionWithRect(std::vector<GameObject>& rectanglesVector, sf::Vector2f& velocity);
+
+	
 
 	//void checkCollisionWithRect();
 	
