@@ -1,52 +1,78 @@
 ﻿#include "GameObject.h"
-#include <iostream>
 
-GameObject::GameObject() {
-    // Initialisation de sprite, texture, velocity, acceleration, etc.
-    circle.setRadius(0.0f);
-    circle.setOutlineThickness(10.f);
-    circle.setOutlineColor(sf::Color(250, 150, 100));
-    rectangle.setSize(sf::Vector2f(0.0f, 0.0f));
+GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color)
+{
 
-   // circleCollider = circle.getGlobalBounds();
-    rectangleCollider = rectangle.getGlobalBounds();
+    Forms = new sf::RectangleShape(sf::Vector2f(_w, _h));
 
-    rectanglesVector = rectanglesVector;
-    rectanglesVector.push_back(getRectangleCollider());
+    //circle.setRadius(0.0f);
+    draw();
+    //circleCollider = circle.getGlobalBounds();
+    //rectangleCollider = rectangle.getGlobalBounds();
 }
 
-GameObject::~GameObject() {
+GameObject::GameObject(int _x, int _y, float _r, sf::Color)
+{
+    //Forms = new sf::CircleShape(sf::Vector2f(_r));
+
+    //circle.setRadius(0.0f)
+    //draw();
+    //circleCollider = circle.getGlobalBounds();
+    //rectangleCollider = rectangle.getGlobalBounds();
+}
+
+GameObject::~GameObject()
+{
     // Lib�ration des ressources, si n�cessaire
 }
 
-void GameObject::drawcircle(float radius)
+
+void GameObject::draw()
 {
-    circle.setRadius(radius);
-   // circleCollider = circle.getGlobalBounds();
+    //Set le rect : pos/size/color
+    Forms->setPosition(sf::Vector2f(50, 50));
+    //Forms->scale(50, 50);
+    //Forms->setFillColor(sf::Color(155, 55, 155, 255));
+
+    //circle.getRadius(sf::Vector2f(_radius));
+    //circle.setFillColor(sf::Color(155,50,155,255));
+    //circle.setPosition(sf::Vector2f(_x, _y));
 }
 
-void GameObject::drawrectangle()
-{
-    rectangle.setSize(size);
-  
-}
-
+/*
 void GameObject::update(float deltaTime)
 {
-   
+
 }
 
-void GameObject::move(sf::Vector2f& velocity)
+void GameObject::setVelocity() {
+    sf::Vector2f velocity(2.f, 1.f);
+}
+
+
+void GameObject::move(const sf::Vector2f& velocity)
 {
     circle.move(velocity);
-   // circleCollider = circle.getGlobalBounds();
-    //circleCollider.left += velocity.x;
-    //circleCollider.top += velocity.y;
-
+    circleCollider.left += velocity.x;
+    circleCollider.top += velocity.y;
+    rectangleCollider.top += velocity.y;
+    rectangleCollider.left += velocity.x;
 }
 
-void GameObject::rotate(float angle)
+void GameObject::rotate()
 {
+    //Get la position du cursor
+    //sf::Vector2i mousePosition = sf::Mouse::getPosition(getWindow());
+
+    // Calculer l'angle entre le centre du rectangle et la position de la souris
+    sf::Vector2f rectangleCenter = rectangle.getPosition() + sf::Vector2f(rectangle.getSize().x / 2, 0);
+    //sf::Vector2f direction = sf::Vector2f(mousePosition) - rectangleCenter;
+    angle = atan2(direction.y, direction.x) * 180 / 3.14159265;
+
+    // Définir la rotation du rectangle en fonction de l'angle
+    rectangle.setRotation(angle);
+
+    std::cout << "Cela rentre dans rotate \n";
 }
 
 void GameObject::checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity) {
@@ -97,19 +123,12 @@ void GameObject::checkCollisionWithRect(std::vector<sf::FloatRect>& rectanglesVe
     }
 }
 
-const sf::Vector2f GameObject::getPosition() const {
+sf::Vector2f GameObject::getPosition() const {
     return circle.getPosition();
 }
 
 void GameObject::setPosition(float x, float y) {
     circle.setPosition(x, y);
-}
-
-void GameObject::setPositionRect(float x, float y) {
-    position.x = x;
-    position.y = y;
-    rectangle.setPosition(position);
-    rectangleCollider = rectangle.getGlobalBounds();
 }
 
 const sf::CircleShape& GameObject::getCircle() const {
@@ -128,11 +147,6 @@ const sf::FloatRect& GameObject::getRectangleCollider() const {
     return rectangleCollider;
 }
 
-const std::vector<sf::FloatRect>& GameObject::getRectangleVector() const
-{
-    return rectanglesVector;
-}
-
 float GameObject::getRadius() const {
     return circle.getRadius();
 }
@@ -142,7 +156,4 @@ void GameObject::setCircle(const sf::CircleShape& newCircle) {
     circleCollider = circle.getGlobalBounds();
 }
 
-const sf::RectangleShape& GameObject::getRectangleShape() const {
-    return rectangle;
-}
-
+*/

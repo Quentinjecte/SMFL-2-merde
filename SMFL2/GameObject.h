@@ -1,19 +1,33 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 class GameObject
 {
 public:
-	GameObject();
+
+	int x;
+	int y;
+	int h;
+	int w;
+	int a, r, g, b;
+
+	sf::Shape* Forms;
+
+	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle
+	GameObject(int _x, int _y, float _r, sf::Color); //circle
 	~GameObject();
+
+	void draw();
 
 	void drawcircle(float radius);
 
 	void drawrectangle();
 	void update(float deltaTime);
-	void move( sf::Vector2f& velocity);
+	void move(const sf::Vector2f& velocity);
+
 	//void move(const sf::Vector2f& velocity, sf::CircleShape circle, sf::FloatRect collider);
-	void rotate(float angle);
+	void rotate();
 	void checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
 
 	void checkCollisionWithRect(std::vector<sf::FloatRect>& rectanglesVector, sf::Vector2f& velocity);
@@ -22,8 +36,6 @@ public:
 	
 	const sf::Vector2f getPosition() const;
 	void setPosition(float x, float y);
-
-	void setPositionRect(float x, float y);
 
 	const sf::CircleShape& getCircle() const;
 
@@ -37,26 +49,26 @@ public:
 
 	void setCircle(const sf::CircleShape& newCircle);
 
-	const sf::RectangleShape& getRectangleShape() const;
+	void setVelocity();
 
-	
-
-	const std::vector<sf::FloatRect>& getRectangleVector() const;
+	void handleEvents();
 
 protected:
 
-	sf::RectangleShape rectangle;
-	sf::CircleShape circle;
+
+	int timer = 0;
+	int Mx = 2.f;
+	int My = 1.f;
+
+	float angle;
+
 	sf::Vector2f position;
 	sf::Vector2f size;
+	sf::Vector2f direction;
+	sf::Vector2f velocity;
 
-	std::vector<sf::FloatRect> rectanglesVector;
-
-	//sf::Vector2f velocity;
 	sf::FloatRect circleCollider; // Colliders pour les formes
 	sf::FloatRect rectangleCollider;
-
-
 
 };
 
