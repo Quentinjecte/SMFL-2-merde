@@ -7,35 +7,54 @@
 
 int main()
 {
-    GameObject gameObj;
-    //std::cout << GameObject::_Fh
+    // Initialisation de sprite, texture, velocity, acceleration, etc.
+    sf::RenderWindow window;
 
-    while (gameObj.getWindow().isOpen())
+    int _Fw = 1080;
+    int _Fh = 720;
+    window.create(sf::VideoMode(_Fw, _Fh), "Ta mere ");
+    window.setFramerateLimit(60);
+
+    GameObject oRect1(_Fw / 2, 500, 75, 25, sf::Color::Red);
+    //GameObject oCircle1(500, 500, 50, sf::Color::Yellow);
+
+    while (window.isOpen())
     {
-        while (gameObj.getWindow().isOpen())
+        //
+        //EVENT
+        sf::Event event;
+        while (window.pollEvent(event))
         {
-            gameObj.handleEvents();
+            if (event.type == sf::Event::Closed)
+                window.close();
+            //UPDATE
+            //si oRect1.collide(oRect2)
+            //on affiche : collision !
 
-            // Reste du code...
+            //DRAW
+            window.clear();
+            //oRect1.draw(window);
+            //window.draw(oCircle1.circle);
+            oRect1.rotate(window);
+            oRect1.draw(window);
+            //oCircle1.draw(window);
+            //window.draw(oRect2.rectangle);
+            //window.draw(oRect3.rectangle);
+            /*
+            draw oRect1
+            draw oRect2
+            draw oCircle1
+            */
+
         }
 
+        window.display();
 
-        gameObj.getWindow().clear();
-        gameObj.getWindow().draw();
-
-        //if (timer == 100)
-        //{
-        //    std::cout << "Rotation du rectangle : " << angle << std::endl;
-        //    //std::cout << "Position cursor : " << localPosition.x << " ; " << localPosition.y << std::endl;
-        //    timer = 0;
-        //}
-
-
-        gameObj.getWindow().display();
     }
 
     return 0;
 }
+
 
 //sf::VertexArray Quads(sf::Quads, 4);
 //

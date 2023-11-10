@@ -4,30 +4,33 @@
 
 class GameObject
 {
+private:
+	int x;
+	int y;
+	int h;
+	int w;
+	int a, r, g, b;
+
+	sf::Shape* Forms;
+
 public:
 
-	int _Fw;
-	int _Fh;
-	int _h = 75;
-	int _w = 25;
 
-	GameObject();
+	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle
+	GameObject(int _x, int _y, float _r, sf::Color); //circle
 	~GameObject();
-	int timer = 0;
-	int Mx = 2.f;
-	int My = 1.f;
 
-
+	void draw(sf::RenderWindow& window);
 
 	void drawcircle(float radius);
 
 	void drawrectangle();
 	void update(float deltaTime);
 	void move(const sf::Vector2f& velocity);
-	//void move(const sf::Vector2f& velocity, sf::CircleShape circle, sf::FloatRect collider);
-	void rotate(float angle);
-	void checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
 
+	//void move(const sf::Vector2f& velocity, sf::CircleShape circle, sf::FloatRect collider);
+	void rotate(sf::RenderWindow& window);
+	void checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
 
 	sf::Vector2f getPosition() const;
 	void setPosition(float x, float y);
@@ -40,8 +43,6 @@ public:
 
 	const sf::FloatRect& getRectangleCollider() const;
 
-	const sf::RenderWindow& getWindow() const;
-
 	float getRadius() const;
 
 	void setCircle(const sf::CircleShape& newCircle);
@@ -52,9 +53,12 @@ public:
 
 protected:
 
-	sf::RectangleShape rectangle;
-	sf::CircleShape circle;
-	sf::RenderWindow window;
+
+	int timer = 0;
+	int Mx = 2.f;
+	int My = 1.f;
+
+	float angle;
 
 	sf::Vector2f position;
 	sf::Vector2f size;

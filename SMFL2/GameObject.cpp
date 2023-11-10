@@ -1,16 +1,25 @@
 ﻿#include "GameObject.h"
 
-GameObject::GameObject() {
-    // Initialisation de sprite, texture, velocity, acceleration, etc.
+GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color)
+{
 
-    window.create(sf::VideoMode(_Fw, _Fh), "Ta mere ");
-    window.setFramerateLimit(60);
+    Forms = new sf::RectangleShape(sf::Vector2f(_w, _h));
+    Forms->setPosition(_x, _y);
+    Forms->setRotation(angle);
+    //circle.setRadius(0.0f);
+    //draw();
+    //circleCollider = circle.getGlobalBounds();
+    //rectangleCollider = rectangle.getGlobalBounds();
+}
 
-    circle.setRadius(0.0f);
-    rectangle.setSize(sf::Vector2f(0.0f, 0.0f));
-
-    circleCollider = circle.getGlobalBounds();
-    rectangleCollider = rectangle.getGlobalBounds();
+GameObject::GameObject(int _x, int _y, float _r, sf::Color)
+{
+    Forms = new sf::CircleShape(_r);
+    Forms->setPosition(_x, _y);
+    //circle.setRadius(0.0f)
+    //draw();
+    //circleCollider = circle.getGlobalBounds();
+    //rectangleCollider = rectangle.getGlobalBounds();
 }
 
 GameObject::~GameObject()
@@ -18,31 +27,12 @@ GameObject::~GameObject()
     // Lib�ration des ressources, si n�cessaire
 }
 
-const sf::RenderWindow& GameObject::getWindow() const {
-    return window;
-}
 
-void GameObject::handleEvents() {
-    sf::Event event;
-    while (window.pollEvent(event))
-    {
-        if (event.type == sf::Event::Closed)
-            window.close();
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-            window.close();
-    }
-}
-
-void GameObject::drawcircle(float radius)
+void GameObject::draw(sf::RenderWindow& window)
 {
-    circle.setRadius(radius);
-
+    window.draw(*Forms);
 }
 
-void GameObject::drawrectangle()
-{
-    rectangle.setSize(size);
-}
 
 void GameObject::update(float deltaTime)
 {
@@ -56,39 +46,47 @@ void GameObject::setVelocity() {
 
 void GameObject::move(const sf::Vector2f& velocity)
 {
-    circle.move(velocity);
+    Forms->move(velocity);
     circleCollider.left += velocity.x;
     circleCollider.top += velocity.y;
     rectangleCollider.top += velocity.y;
     rectangleCollider.left += velocity.x;
 }
 
-void GameObject::rotate(float angle)
+void GameObject::rotate(sf::RenderWindow& window)
 {
-    rectangle.setPosition(_Fw / 2, _Fh);
-    rectangle.setOrigin(0, _w / 2);
-    rectangle.setFillColor(sf::Color(125, 0, 0, 255));
-    rectangle.setOutlineThickness(10);
-    rectangle.setOutlineColor(sf::Color(145, 0, 0, 255));
-
-    // Obtenir la position de la souris
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(getWindow());
-
+    //Get la position du cursor
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     // Calculer l'angle entre le centre du rectangle et la position de la souris
-    sf::Vector2f rectangleCenter = rectangle.getPosition() + sf::Vector2f(rectangle.getSize().x / 2, 0);
+    sf::Vector2f rectangleCenter = Forms->getPosition() + sf::Vector2f(Forms->getRotation() / 2, 0);
     sf::Vector2f direction = sf::Vector2f(mousePosition) - rectangleCenter;
     angle = atan2(direction.y, direction.x) * 180 / 3.14159265;
-
+    Forms->setOrigin(25 / 2, 0);
     // Définir la rotation du rectangle en fonction de l'angle
-    rectangle.setRotation(angle);
+    Forms->setRotation(angle);
+
+    std::cout << "Cela rentre dans rotate \n";
 }
+
+//void GameObject::handleEvents()
+//{
+//    sf::Event event;
+//    while (window.pollEvent(event))
+//    {
+//        if (event.type == sf::Event::Closed)
+//            window.close();
+//        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+//            window.close();
+//        rotate();
+//    }
+//}
 
 void GameObject::checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity) {
 
 
     // Récupérez la position actuelle de la balle
-    sf::Vector2f position = circle.getPosition();
-    float radius = circle.getRadius();
+    sf::Vector2f position = Forms->getPosition();
+    float radius = Forms->getScale().x;
     // Vérifiez la collision avec les bords de la fenêtre
     if (position.x - radius < 0 || position.x + radius > windowSize.x) {
         // Collision avec le bord gauche ou droit, inversez la composante x de la vitesse
@@ -108,24 +106,24 @@ void GameObject::checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Ve
     timer += 1;
 
     // Appliquez la nouvelle position à la balle
-    circle.move(velocity);
+    Forms->move(velocity);
 }
 
 sf::Vector2f GameObject::getPosition() const {
-    return circle.getPosition();
+    return Forms->getPosition();
 }
 
 void GameObject::setPosition(float x, float y) {
-    circle.setPosition(x, y);
+    Forms->setPosition(x, y);
 }
 
-const sf::CircleShape& GameObject::getCircle() const {
-    return circle;
-}
-
-const sf::RectangleShape& GameObject::getRectangle() const {
-    return rectangle;
-}
+//const sf::CircleShape& GameObject::getCircle() const {
+//    return circle;
+//}
+//
+//const sf::RectangleShape& GameObject::getRectangle() const {
+//    return rectangle;
+//}
 
 const sf::FloatRect& GameObject::getCircleCollider() const {
     return circleCollider;
@@ -135,12 +133,11 @@ const sf::FloatRect& GameObject::getRectangleCollider() const {
     return rectangleCollider;
 }
 
-float GameObject::getRadius() const {
-    return circle.getRadius();
-}
-
-void GameObject::setCircle(const sf::CircleShape& newCircle) {
-    circle = newCircle;
-    circleCollider = circle.getGlobalBounds();
-}
-
+//float GameObject::getRadius() const {
+//    return Forms->getRadius();
+//}
+//
+//void GameObject::setCircle(const sf::CircleShape& newCircle) {
+//    Forms = newCircle;
+//    circleCollider = circle.getGlobalBounds();
+//}
