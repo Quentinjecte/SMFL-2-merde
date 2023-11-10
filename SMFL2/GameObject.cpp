@@ -58,7 +58,7 @@ void GameObject::rotate(sf::RenderWindow& window)
     std::cout << "Cela rentre dans rotate \n";
 }
 
-void GameObject::checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity) {
+void GameObject::checkCWB(const sf::Vector2u& windowSize, sf::Vector2f& velocity) {
     // Récupérez la position actuelle de la balle
     sf::Vector2f position = Forms->getPosition();
     sf::Vector2f radius = Forms->getScale();
@@ -78,4 +78,30 @@ void GameObject::checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Ve
     }
     std::cout << velocity.x << ";" << velocity.y << std::endl;
     Forms->move(velocity);
+}
+
+void GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector, sf::Vector2f& velocity)
+{
+
+    for (const sf::FloatRect& rect : rectanglesVector)
+    {
+
+        float incidentAngle = std::atan2(velocity.y, velocity.x) * (180.0f / 3.14159265f);
+        float reflectionAngle = 180.0f - incidentAngle;
+        float newRadians = reflectionAngle * (3.14159265f / 180.0f);
+
+        if (Forms->getGlobalBounds().intersects(rect))
+        {
+            velocity.x = 7.f * (std::cos(newRadians) + 0.1f);
+            std::cout << "velocity " << velocity.x << " cos " << std::cos(newRadians) << std::endl;
+            velocity.y = 4.f * (std::sin(newRadians) + 0.1f);
+            std::cout << "velocity " << velocity.y << " sin " << std::sin(newRadians) << std::endl;
+            if (velocity.x < 1)
+                velocity.x = 1;
+            if (velocity.y < 1)
+                velocity.y = 1;
+
+        }
+    }
+
 }

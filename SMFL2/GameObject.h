@@ -11,7 +11,6 @@ private:
 	int w;
 	int a, r, g, b;
 
-	sf::Shape* Forms;
 
 	float angle;
 
@@ -19,6 +18,7 @@ private:
 
 public:
 
+	sf::Shape* Forms;
 
 	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle
 	GameObject(int _x, int _y, float _r, sf::Color); //circle
@@ -26,14 +26,15 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
-	void draw(sf::RenderWindow& window);
 	void update(float deltaTime);
 
 	void move(const sf::Vector2f& velocity);
 
 	void rotate(sf::RenderWindow& window);
 
-	void checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
+	void checkCWB(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
+
+	void checkCWS(std::vector<sf::FloatRect>& rectanglesVector, sf::Vector2f& velocity);
 
 	void setVelocity();
 

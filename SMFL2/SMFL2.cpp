@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <iostream>
+#include "GameObject.h"
+#include <stdlib.h>
 
 
 int main()
@@ -14,8 +16,18 @@ int main()
     window.setFramerateLimit(60);
 
     GameObject Rect1(_Fw / 2, _Fh, 25, 75, sf::Color(155,50,155,255));
+    GameObject Rect2(50, 100, 100, 20, sf::Color::Green);
+
     GameObject Circle(0, 0, 10, sf::Color::Red);
     sf::Vector2f velocity(1.0f, 1.0f);
+
+    sf::FloatRect coRect1 = Rect1.Forms->getGlobalBounds();
+    sf::FloatRect coRect2 = Rect2.Forms->getGlobalBounds();
+    sf::RectangleShape rect;
+
+    std::vector<sf::FloatRect> rectanglesVector;
+    rectanglesVector.push_back(coRect1);
+    rectanglesVector.push_back(coRect2);
     //GameObject Circle1(500, 500, 50, sf::Color::Yellow);
 
     while (window.isOpen())
@@ -30,11 +42,13 @@ int main()
 
         window.clear();
         Circle.move(velocity);
-        Circle.checkCollisionWithBounds(window.getSize(), velocity);
+        Circle.checkCWB(window.getSize(), velocity);
         Rect1.rotate(window);
+        Circle.checkCWS(rectanglesVector, velocity);
 
         Circle.draw(window);
         Rect1.draw(window);
+        Rect2.draw(window);
 
         window.display();
 
