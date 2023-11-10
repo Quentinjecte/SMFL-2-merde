@@ -55,13 +55,14 @@ void GameObject::move(const sf::Vector2f& velocity)
 
 void GameObject::rotate(sf::RenderWindow& window)
 {
+    //Set the origine
+    Forms->setOrigin(0, 25 / 2);
     //Get la position du cursor
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     // Calculer l'angle entre le centre du rectangle et la position de la souris
-    sf::Vector2f rectangleCenter = Forms->getPosition() + sf::Vector2f(Forms->getRotation() / 2, 0);
+    sf::Vector2f rectangleCenter = Forms->getPosition()/* + sf::Vector2f(Forms->getRotation() / 2, 0)*/;
     sf::Vector2f direction = sf::Vector2f(mousePosition) - rectangleCenter;
-    angle = atan2(direction.y, direction.x) * 180 / 3.14159265;
-    Forms->setOrigin(25 / 2, 0);
+    angle = atan2(direction.y, direction.x) * 180 / 3.14159265358979323846;
     // Définir la rotation du rectangle en fonction de l'angle
     Forms->setRotation(angle);
 

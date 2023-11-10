@@ -15,7 +15,7 @@ int main()
     window.create(sf::VideoMode(_Fw, _Fh), "Ta mere ");
     window.setFramerateLimit(60);
 
-    GameObject oRect1(_Fw / 2, 500, 75, 25, sf::Color::Red);
+    GameObject oRect1(_Fw / 2, _Fh, 25, 75, sf::Color(155,50,155,255));
     //GameObject oCircle1(500, 500, 50, sf::Color::Yellow);
 
     while (window.isOpen())
@@ -40,11 +40,6 @@ int main()
             //oCircle1.draw(window);
             //window.draw(oRect2.rectangle);
             //window.draw(oRect3.rectangle);
-            /*
-            draw oRect1
-            draw oRect2
-            draw oCircle1
-            */
 
         }
 
