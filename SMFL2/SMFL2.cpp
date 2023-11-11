@@ -3,35 +3,50 @@
 #include <iostream>
 #include "GameObject.h"
 #include <stdlib.h>
-
+#include "GameManager.h"
+#include "test.h"
 
 int main()
 {
     // Initialisation de sprite, texture, velocity, acceleration, etc.
+    //Creation de la fenetre
     sf::RenderWindow window;
-
     int _Fw = 1080;
     int _Fh = 720;
     window.create(sf::VideoMode(_Fw, _Fh), "Ta mere ");
     window.setFramerateLimit(60);
 
-    GameObject Rect1(_Fw / 2, _Fh, 25, 75, sf::Color(155,50,155,255));
+    rectanglesEtCercleEnMouvement(window);
+
+   // rectanglesEtDeuxCerclesEnMouvement(window);
+    /*
+    GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(155,50,155,255));
     GameObject Rect2(50, 100, 100, 20, sf::Color::Green);
 
-    GameObject Circle(0, 0, 10, sf::Color::Red);
-    sf::Vector2f velocity(1.0f, 1.0f);
+    GameObject Circle(0, 0, 10, sf::Vector2f(1.f, 1.f),sf::Color::Red);
+    
 
-    sf::FloatRect coRect1 = Rect1.Forms->getGlobalBounds();
-    sf::FloatRect coRect2 = Rect2.Forms->getGlobalBounds();
-    sf::RectangleShape rect;
+    //GameManager input;
 
-    std::vector<sf::FloatRect> rectanglesVector;
-    rectanglesVector.push_back(coRect1);
-    rectanglesVector.push_back(coRect2);
-    //GameObject Circle1(500, 500, 50, sf::Color::Yellow);
+    sf::Clock deltaTime;
+    
+    float speed = 5;
+    std::vector<sf::FloatRect> rectangles;
+    const int numRectangles = 20;
+    const int rectangleSize = 40;
+    const int xSpacing = 60; // Espacement horizontal
+    const int ySpacing = 60; // Espacement vertical
+    const int initialX = 300;
+    const int initialY = 100;
 
+    for (int i = 0; i < numRectangles; ++i) {
+        sf::RectangleShape rect(sf::Vector2f(rectangleSize, rectangleSize));
+        rect.setPosition(initialX + (xSpacing * i), initialY + (ySpacing * i)); // Positionnement
+        rectangles.push_back(rect.getGlobalBounds());
+    }
     while (window.isOpen())
     {
+       
 
         sf::Event event;
         while (window.pollEvent(event))
@@ -39,50 +54,27 @@ int main()
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+        
+       // input.moveCanon(Canon);
 
         window.clear();
-        Circle.move(velocity);
-        Circle.checkCWB(window.getSize(), velocity);
-        Rect1.rotate(window);
-        Circle.checkCWS(rectanglesVector, velocity);
+        Circle.updatePosition(deltaTime.getElapsedTime(), speed);
+       
+        Circle.checkCWB(window.getSize());
+        Canon.rotate(window);
+        Circle.checkCWS(rectangles);
 
         Circle.draw(window);
-        Rect1.draw(window);
-        Rect2.draw(window);
+        Canon.draw(window);
+        for (const auto& rect : rectangles) {
+            sf::RectangleShape shape(sf::Vector2f(rect.width, rect.height));
+            shape.setPosition(rect.left, rect.top);
+            window.draw(shape);
+        }
 
         window.display();
-
+        //deltaTime.restart();
     }
-
+    */
     return 0;
 }
-
-
-//sf::VertexArray Quads(sf::Quads, 4);
-//
-//Quads[0].position = sf::Vector2f(0, _fh - 20);
-//Quads[1].position = sf::Vector2f(0, _fh + 80);
-//Quads[2].position = sf::Vector2f(_fw + 80, _fh + 80);
-//Quads[3].position = sf::Vector2f(_fw + 80, _fh - 20);
-
-//window.draw(Quads);
-
-//sf::Texture texture;
-//if (texture.loadFromFile("./pixil.png")) {
-//    rectangle.setTexture(&texture);
-//}
-
-//if (timer == 25)
-//{
-//    Quads[0].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-//    Quads[1].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-//    Quads[2].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-//    Quads[3].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-//}
-//if (timer == 75)
-//{
-//    Quads[0].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-//    Quads[1].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-//    Quads[2].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-//    Quads[3].color = sf::Color(rand() % 255, rand() % 255, rand() % 255, 255);
-//}
