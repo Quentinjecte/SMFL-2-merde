@@ -1,11 +1,11 @@
-/*#pragma once
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 
 class GameManager
 {
-	void moveCanon(GameObject& Canon);
+public:
+	void moveRL(GameObject& Canon);
+	bool isKeyPressed(sf::Keyboard::Key key);
 };
-
-*/

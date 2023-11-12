@@ -9,11 +9,12 @@ GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color)
 
 }
 
-GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction, sf::Color )
+GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color )
 {
     Forms = new sf::CircleShape(_r);
     Forms->setPosition(_x, _y);
     direction = _direction;
+    speed = _speed;
 }
 
 GameObject::~GameObject()
@@ -30,7 +31,6 @@ void GameObject::update(float deltaTime)
 {
 
 }
-
 
 void GameObject::move(const sf::Vector2f& direction)
 {
@@ -54,25 +54,17 @@ void GameObject::rotate(sf::RenderWindow& window)
 }
 
 void GameObject::checkCWB(const sf::Vector2u& windowSize) {
-    // Récupérez la position actuelle de la balle
+
     sf::Vector2f position = Forms->getPosition();
     sf::Vector2f radius = Forms->getScale();
 
-    // Vérifiez la collision avec les bords de la fenêtre
-    if ((position.x - radius.x < 0 || position.x + radius.x > windowSize.x - 10)) {
-        // Collision avec le bord gauche ou droit, inversez la composante x de la vitesse
-        //direction.x = -direction.x;
+    if ((position.x - radius.x < 0 || position.x + radius.x > windowSize.x - 100)) {
         updateDirection(1);
 
     }
-    if (position.y - radius.y < 0 || position.y + radius.y > windowSize.y - 10) {
-        // Collision avec le bord supérieur ou inférieur, inversez la composante y de la vitesse
-        //direction.y = -direction.y;
+    if (position.y - radius.y < 0 || position.y + radius.y > windowSize.y - 100) {
         updateDirection(2);
     }
-   // std::cout << direction.x << ";" << direction.y << std::endl;
-   // Forms->move(direction);
-
 }
 
 void GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
@@ -84,43 +76,18 @@ void GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
         if (Forms->getGlobalBounds().intersects(rect))
         {
             updateDirection(3);
-           // direction.x = 7.f * (std::cos(newRadians) + 0.1f);
-           // std::cout << "velocity " << direction.x << " cos " << std::cos(newRadians) << std::endl;
-            //direction.y = 4.f * (std::sin(newRadians) + 0.1f);
-            //std::cout << "velocity " << velocity.y << " sin " << std::sin(newRadians) << std::endl;
 
         }
     }
 
 }
 
-void GameObject::checkCircleCollisions(const std::vector<sf::FloatRect>& circles)
+void GameObject::updatePosition(sf::Time deltaTime)
 {
-    for (const sf::FloatRect& rect : circles)
-    {
-
-        if (Forms->getGlobalBounds().intersects(rect))
-        {
-            updateDirection(3);
-            // direction.x = 7.f * (std::cos(newRadians) + 0.1f);
-            // std::cout << "velocity " << direction.x << " cos " << std::cos(newRadians) << std::endl;
-             //direction.y = 4.f * (std::sin(newRadians) + 0.1f);
-             //std::cout << "velocity " << velocity.y << " sin " << std::sin(newRadians) << std::endl;
-            std::cout << "coucou " << std::endl;
-        }
-    }
-}
-
-
-
-
-
-void GameObject::updatePosition(sf::Time deltaTime, float speed)
-{
-    //float distance = speed * deltaTime.asSeconds();
     sf::Vector2f _move = direction * speed;
     Forms->move(_move);
 }
+
 void GameObject::updateDirection(int typeColision)
 {
 
@@ -153,4 +120,19 @@ void GameObject::setDirection(const sf::Vector2f& newDirection) {
 
 const sf::CircleShape& GameObject::getCircle() const {
     return *static_cast<sf::CircleShape*>(Forms);
+}
+
+//pas fonctionnel 
+void GameObject::checkCircleCollisions(std::vector<sf::FloatRect>& cerles)
+{
+    for (const sf::FloatRect& _cercle : cerles)
+    {
+
+        if (Forms->getGlobalBounds().intersects(_cercle))
+        {
+            updateDirection(3);
+            std::cout << "col" << std::endl;
+
+        }
+    }
 }

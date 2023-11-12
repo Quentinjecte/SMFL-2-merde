@@ -8,6 +8,7 @@
 
 int main()
 {
+
     // Initialisation de sprite, texture, velocity, acceleration, etc.
     //Creation de la fenetre
     sf::RenderWindow window;
@@ -16,9 +17,12 @@ int main()
     window.create(sf::VideoMode(_Fw, _Fh), "Ta mere ");
     window.setFramerateLimit(60);
 
-    rectanglesEtCercleEnMouvement(window);
+    
 
-   // rectanglesEtDeuxCerclesEnMouvement(window);
+    //rectanglesEtCercleEnMouvement(window);
+
+    rectanglesEtDeuxCerclesEnMouvement(window);
+
     /*
     GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(155,50,155,255));
     GameObject Rect2(50, 100, 100, 20, sf::Color::Green);

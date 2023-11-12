@@ -15,13 +15,14 @@ private:
 	float angle;
 
 	sf::Vector2f direction;
+	float speed;
 
 public:
 
 	sf::Shape* Forms;
 
 	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle
-	GameObject(int _x, int _y, float _r, sf::Vector2f _direction, sf::Color); //circle
+	GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color); //circle
 	~GameObject();
 
 	void draw(sf::RenderWindow& window);
@@ -36,25 +37,14 @@ public:
 
 	void checkCWS(std::vector<sf::FloatRect>& rectanglesVector);
 
-	void checkCircleCollisions(const std::vector<sf::FloatRect>& circles);
+	void checkCircleCollisions(std::vector<sf::FloatRect>& cerles);
 
-	//void checkCWB(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
-
-	//void checkCWS(std::vector<sf::FloatRect>& rectanglesVector, sf::Vector2f& velocity);
-
-	void updatePosition(sf::Time deltaTime, float speed);
+	void updatePosition(sf::Time deltaTime);
 
 	void updateDirection(int typeColision);
-
-
 
 	void setDirection(const sf::Vector2f& newDirection);
 
 	const sf::CircleShape& getCircle() const;
-
-
-
-	
-
 };
 
