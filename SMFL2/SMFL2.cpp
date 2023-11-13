@@ -18,67 +18,44 @@ int main()
     window.setFramerateLimit(60);
 
     
-
-    //rectanglesEtCercleEnMouvement(window);
-
-    rectanglesEtDeuxCerclesEnMouvement(window);
-
-    /*
-    GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(155,50,155,255));
+    GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(155,50,155,255)); // Construis le canon
     GameObject Rect2(50, 100, 100, 20, sf::Color::Green);
+    GameObject Circle(Canon.getEndX(), Canon.getEndY(), 10, sf::Vector2f(1.f, 1.f), 10, sf::Color::Red);
 
-    GameObject Circle(0, 0, 10, sf::Vector2f(1.f, 1.f),sf::Color::Red);
-    
 
-    //GameManager input;
-
-    sf::Clock deltaTime;
-    
-    float speed = 5;
-    std::vector<sf::FloatRect> rectangles;
-    const int numRectangles = 20;
-    const int rectangleSize = 40;
-    const int xSpacing = 60; // Espacement horizontal
-    const int ySpacing = 60; // Espacement vertical
-    const int initialX = 300;
-    const int initialY = 100;
-
-    for (int i = 0; i < numRectangles; ++i) {
-        sf::RectangleShape rect(sf::Vector2f(rectangleSize, rectangleSize));
-        rect.setPosition(initialX + (xSpacing * i), initialY + (ySpacing * i)); // Positionnement
-        rectangles.push_back(rect.getGlobalBounds());
-    }
     while (window.isOpen())
     {
-       
 
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 window.close();
+                
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            {
+                Circle.setDirection(sf::Vector2f(cos(Canon.Forms->getRotation()), sin(Canon.Forms->getRotation())));
+                std::cout << "non";
+            }
         }
-        
-       // input.moveCanon(Canon);
+            // input.moveCanon(Canon);
 
-        window.clear();
-        Circle.updatePosition(deltaTime.getElapsedTime(), speed);
-       
-        Circle.checkCWB(window.getSize());
-        Canon.rotate(window);
-        Circle.checkCWS(rectangles);
+            window.clear();
 
-        Circle.draw(window);
-        Canon.draw(window);
-        for (const auto& rect : rectangles) {
-            sf::RectangleShape shape(sf::Vector2f(rect.width, rect.height));
-            shape.setPosition(rect.left, rect.top);
-            window.draw(shape);
-        }
+            //Circle.checkCWB(window.getSize());
+            Canon.rotate(window);
+            Canon.draw(window);
 
-        window.display();
-        //deltaTime.restart();
+            Circle.updateEndPosition();
+            Circle.Forms->setPosition(Canon.getEndX()-10, Canon.getEndY()-20);
+
+            Circle.draw(window);
+            //rectanglesEtDeuxCerclesEnMouvement(window);
+
+
+            window.display();
     }
-    */
+    
     return 0;
+
 }

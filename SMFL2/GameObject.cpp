@@ -1,25 +1,45 @@
 ﻿#include "GameObject.h"
+#include <cmath>
 
-GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color)
+GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color) // rectangle
 {
 
     Forms = new sf::RectangleShape(sf::Vector2f(_w, _h));
     Forms->setPosition(_x, _y);
     Forms->setRotation(angle);
 
+    x = _x;
+    y = _y;
+    w = _w;
+    h = _h;
+
+    updateEndPosition();
 }
 
-GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color )
+GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color ) //Circle
 {
     Forms = new sf::CircleShape(_r);
     Forms->setPosition(_x, _y);
     direction = _direction;
     speed = _speed;
+
+    direction = _direction;
+    speed = _speed;
+
+    x = _x;
+    y = _y;
+    r = _r;
+
+    updateEndPosition();
+
+
 }
 
 GameObject::~GameObject()
 {
     // Lib�ration des ressources, si n�cessaire
+    delete Forms;
+
 }
 
 void GameObject::draw(sf::RenderWindow& window)
@@ -32,15 +52,31 @@ void GameObject::update(float deltaTime)
 
 }
 
+void GameObject::updateEndPosition()
+{
+    endX = x + (w + r) * cos(angle * 3.14159265358979323846 / 180);
+    endY = y + (w + r) * sin(angle * 3.14159265358979323846 / 180);
+}
+
 void GameObject::move(const sf::Vector2f& direction)
 {
     Forms->move(direction);
 }
 
+void GameObject::setDirection(const sf::Vector2f& newDirection) {
+    direction = newDirection;
+}
+
+void GameObject::initCP(sf::FloatRect _canonPos)
+{
+
+
+}
+
 void GameObject::rotate(sf::RenderWindow& window)
 {
     //Set the origine
-    Forms->setOrigin(0, 25 / 2);
+    Forms->setOrigin(0, h / 2);
     //Get la position du cursor
     sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
     // Calculer l'angle entre le centre du rectangle et la position de la souris
@@ -50,7 +86,7 @@ void GameObject::rotate(sf::RenderWindow& window)
     // Définir la rotation du rectangle en fonction de l'angle
     Forms->setRotation(angle);
 
-    std::cout << "Cela rentre dans rotate \n";
+    updateEndPosition();
 }
 
 void GameObject::checkCWB(const sf::Vector2u& windowSize) {
@@ -82,7 +118,7 @@ void GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
 
 }
 
-void GameObject::updatePosition(sf::Time deltaTime)
+void GameObject::updatePosition()
 {
     sf::Vector2f _move = direction * speed;
     Forms->move(_move);
@@ -114,10 +150,6 @@ void GameObject::updateDirection(int typeColision)
     
 }
 
-void GameObject::setDirection(const sf::Vector2f& newDirection) {
-    direction = newDirection; 
-}
-
 const sf::CircleShape& GameObject::getCircle() const {
     return *static_cast<sf::CircleShape*>(Forms);
 }
@@ -135,4 +167,19 @@ void GameObject::checkCircleCollisions(std::vector<sf::FloatRect>& cerles)
 
         }
     }
+}
+
+const sf::FloatRect& GameObject::getRect() const {
+    return static_cast<sf::RectangleShape*>(Forms)->getGlobalBounds();
+}
+
+
+float GameObject::getEndX() const
+{
+    return endX;
+}
+
+float GameObject::getEndY() const
+{
+    return endY;
 }

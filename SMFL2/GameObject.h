@@ -5,17 +5,13 @@
 class GameObject
 {
 private:
-	int x;
-	int y;
-	int h;
-	int w;
+	int x, y, h, w;
+
 	int a, r, g, b;
 
-
-	float angle;
+	float endX, endY, angle, speed;
 
 	sf::Vector2f direction;
-	float speed;
 
 public:
 
@@ -31,6 +27,8 @@ public:
 
 	void move(const sf::Vector2f& direction);
 
+	void initCP(sf::FloatRect _canonPos);
+
 	void rotate(sf::RenderWindow& window);
 
 	void checkCWB(const sf::Vector2u& windowSize);
@@ -39,12 +37,22 @@ public:
 
 	void checkCircleCollisions(std::vector<sf::FloatRect>& cerles);
 
-	void updatePosition(sf::Time deltaTime);
+	void setDirection(const sf::Vector2f& newDirection);
+
+	const sf::FloatRect& getRect() const;
+
+	void updatePosition();
 
 	void updateDirection(int typeColision);
 
-	void setDirection(const sf::Vector2f& newDirection);
+	void updateEndPosition();
 
 	const sf::CircleShape& getCircle() const;
+
+	float getEndX() const;
+	
+
+	float getEndY() const;
+	
 };
 
