@@ -67,12 +67,6 @@ void GameObject::setDirection(const sf::Vector2f& newDirection) {
     direction = newDirection;
 }
 
-void GameObject::initCP(sf::FloatRect _canonPos)
-{
-
-
-}
-
 void GameObject::rotate(sf::RenderWindow& window)
 {
     //Set the origine

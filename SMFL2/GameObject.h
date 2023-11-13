@@ -27,8 +27,6 @@ public:
 
 	void move(const sf::Vector2f& direction);
 
-	void initCP(sf::FloatRect _canonPos);
-
 	void rotate(sf::RenderWindow& window);
 
 	void checkCWB(const sf::Vector2u& windowSize);
@@ -51,7 +49,6 @@ public:
 
 	float getEndX() const;
 	
-
 	float getEndY() const;
 	
 };
