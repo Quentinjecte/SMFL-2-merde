@@ -35,7 +35,7 @@ int main()
                 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
-                if (ball == flase)
+                if (ball == false)
                 {
                     Circle.setDirection(sf::Vector2f(cos(Canon.Forms->getRotation()), sin(Canon.Forms->getRotation())));
                     std::cout << "non";
