@@ -5,38 +5,51 @@
 class GameObject
 {
 private:
-	int x;
-	int y;
-	int h;
-	int w;
+	int x, y, h, w;
+
 	int a, r, g, b;
 
+	float endX, endY, angle, speed;
 
-	float angle;
-
-	sf::Vector2f velocity;
+	sf::Vector2f direction;
 
 public:
 
 	sf::Shape* Forms;
 
 	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle
-	GameObject(int _x, int _y, float _r, sf::Color); //circle
+	GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color); //circle
 	~GameObject();
 
 	void draw(sf::RenderWindow& window);
 
 	void update(float deltaTime);
 
-	void move(const sf::Vector2f& velocity);
+	void move(const sf::Vector2f& direction);
 
 	void rotate(sf::RenderWindow& window);
 
-	void checkCWB(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
+	void checkCWB(const sf::Vector2u& windowSize);
 
-	void checkCWS(std::vector<sf::FloatRect>& rectanglesVector, sf::Vector2f& velocity);
+	void checkCWS(std::vector<sf::FloatRect>& rectanglesVector);
 
-	void setVelocity();
+	void checkCircleCollisions(std::vector<sf::FloatRect>& cerles);
 
+	void setDirection(const sf::Vector2f& newDirection);
+
+	const sf::FloatRect& getRect() const;
+
+	void updatePosition();
+
+	void updateDirection(int typeColision);
+
+	void updateEndPosition();
+
+	const sf::CircleShape& getCircle() const;
+
+	float getEndX() const;
+	
+	float getEndY() const;
+	
 };
 
