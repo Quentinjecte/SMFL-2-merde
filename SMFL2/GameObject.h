@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-class GameObject
+class GameObject 
 {
 private:
 	int x;
@@ -13,7 +13,6 @@ private:
 
 	sf::Shape* Forms;
 
-	float angle;
 
 	sf::Vector2f velocity;
 
@@ -28,13 +27,21 @@ public:
 
 	void update(float deltaTime);
 
-	void move(const sf::Vector2f& velocity);
+	void move(sf::RenderWindow& window);
 
 	void rotate(sf::RenderWindow& window);
 
 	void checkCollisionWithBounds(const sf::Vector2u& windowSize, sf::Vector2f& velocity);
 
 	void setVelocity();
+
+	void initCP(sf::RenderWindow& window);
+
+protected:
+
+	float speed = 5.0f;
+	sf::Vector2f direction;
+	float angle;
 
 };
 
