@@ -5,7 +5,13 @@
 
 class GameManager
 {
+
 public:
+
 	void moveRL(GameObject& Canon);
+
 	bool isKeyPressed(sf::Keyboard::Key key);
+
+	bool isButtonPressed(sf::Mouse::Button but);
+
 };

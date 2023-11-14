@@ -1,7 +1,6 @@
 #include "./GameManager.h"
 
 
-
 void GameManager::moveRL(GameObject& gameObject) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
  
@@ -13,6 +12,13 @@ void GameManager::moveRL(GameObject& gameObject) {
     }
 } 
 
-bool GameManager::isKeyPressed(sf::Keyboard::Key key) {
+bool GameManager::isKeyPressed(sf::Keyboard::Key key) 
+{
     return sf::Keyboard::isKeyPressed(key);
+}
+
+bool GameManager::isButtonPressed(sf::Mouse::Button but )
+{
+    return sf::Mouse::isButtonPressed(but);
+    
 }
