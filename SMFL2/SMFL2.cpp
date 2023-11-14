@@ -21,7 +21,13 @@ int main()
 
     //rectanglesEtCercleEnMouvement(window);
 
-    rectanglesEtDeuxCerclesEnMouvement(window);
+    //rectanglesEtDeuxCerclesEnMouvement(window);
+
+    //drawHalfGrid(window);
+
+   HP(window);
+
+    //balleClass(window);
 
     /*
     GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(155,50,155,255));

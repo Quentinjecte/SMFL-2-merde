@@ -21,6 +21,7 @@ public:
 
 	sf::Shape* Forms;
 
+	GameObject();
 	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle
 	GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color); //circle
 	~GameObject();
@@ -35,16 +36,18 @@ public:
 
 	void checkCWB(const sf::Vector2u& windowSize);
 
-	void checkCWS(std::vector<sf::FloatRect>& rectanglesVector);
+	std::vector<sf::FloatRect> checkCWS(std::vector<sf::FloatRect>& rectanglesVector);
 
-	void checkCircleCollisions(std::vector<sf::FloatRect>& cerles);
+	void updatePosition();
 
-	void updatePosition(sf::Time deltaTime);
+	//void checkCircleCollisions(std::vector<sf::FloatRect>& cerles);
+
 
 	void updateDirection(int typeColision);
 
 	void setDirection(const sf::Vector2f& newDirection);
 
 	const sf::CircleShape& getCircle() const;
+	const sf::FloatRect& getRect() const;
 };
 
