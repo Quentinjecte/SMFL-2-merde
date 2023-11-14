@@ -42,8 +42,6 @@ public:
 
 	const sf::FloatRect& getRect() const;
 
-	void updatePosition();
-
 	void updateDirection(int typeColision);
 
 	void updateEndPosition();
