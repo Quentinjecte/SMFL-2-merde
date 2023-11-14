@@ -88,11 +88,11 @@ void GameObject::checkCWB(const sf::Vector2u& windowSize) {
     sf::Vector2f position = Forms->getPosition();
     sf::Vector2f radius = Forms->getScale();
 
-    if ((position.x - radius.x < 0 || position.x + radius.x > windowSize.x - 100)) {
+    if ((position.x - radius.x < 0 || position.x + radius.x > windowSize.x - 10)) {
         updateDirection(1);
 
     }
-    if (position.y - radius.y < 0 || position.y + radius.y > windowSize.y - 100) {
+    if (position.y - radius.y < 0 || position.y + radius.y > windowSize.y - 10) {
         updateDirection(2);
     }
 }
@@ -148,25 +148,9 @@ const sf::CircleShape& GameObject::getCircle() const {
     return *static_cast<sf::CircleShape*>(Forms);
 }
 
-//pas fonctionnel 
-void GameObject::checkCircleCollisions(std::vector<sf::FloatRect>& cerles)
-{
-    for (const sf::FloatRect& _cercle : cerles)
-    {
-
-        if (Forms->getGlobalBounds().intersects(_cercle))
-        {
-            updateDirection(3);
-            std::cout << "col" << std::endl;
-
-        }
-    }
-}
-
 const sf::FloatRect& GameObject::getRect() const {
     return static_cast<sf::RectangleShape*>(Forms)->getGlobalBounds();
 }
-
 
 float GameObject::getEndX() const
 {

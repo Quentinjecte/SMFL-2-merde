@@ -35,10 +35,10 @@ int main()
                 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
             {
-                if (ball == false)
+                if (!ball)
                 {
-                    Circle.setDirection(sf::Vector2f(cos(Canon.Forms->getRotation()), sin(Canon.Forms->getRotation())));
-                    std::cout << "non";
+                    float angleRadians = Canon.Forms->getRotation() * 3.14159265358979323846 / 180.0;
+                    Circle.setDirection(sf::Vector2f(cos(angleRadians), sin(angleRadians)));
                     Circle.Forms->setPosition(Canon.getEndX() - 10, Canon.getEndY() - 20);
                     ball = true;
                 }
@@ -58,7 +58,8 @@ int main()
             }
 
             Circle.draw(window);
-
+            Rect2.draw(window);
+            Circle.checkCWB(window.getSize()); 
 
             window.display();
     }
