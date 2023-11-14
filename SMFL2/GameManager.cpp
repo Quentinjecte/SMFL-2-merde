@@ -11,7 +11,7 @@ void GameManager::moveRL(GameObject& gameObject) {
 
         gameObject.move(sf::Vector2f(1.0f, 0.0f));
     }
-}
+} 
 
 bool GameManager::isKeyPressed(sf::Keyboard::Key key) {
     return sf::Keyboard::isKeyPressed(key);
