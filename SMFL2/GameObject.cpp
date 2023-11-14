@@ -1,7 +1,11 @@
 ﻿#include "GameObject.h"
 #include <cmath>
 
-GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color) // rectangle
+GameObject::GameObject()
+{
+}
+
+GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color)
 {
 
     Forms = new sf::RectangleShape(sf::Vector2f(_w, _h));
@@ -16,10 +20,11 @@ GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color) // rectangle
     updateEndPosition();
 }
 
-GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color ) //Circle
+GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color _color)
 {
     Forms = new sf::CircleShape(_r);
     Forms->setPosition(_x, _y);
+    Forms->setFillColor(_color);
     direction = _direction;
     speed = _speed;
 
@@ -84,11 +89,14 @@ void GameObject::rotate(sf::RenderWindow& window)
 }
 
 void GameObject::checkCWB(const sf::Vector2u& windowSize) {
-
+    // Récupérez la position actuelle de la balle
     sf::Vector2f position = Forms->getPosition();
     sf::Vector2f radius = Forms->getScale();
 
+    // Vérifiez la collision avec les bords de la fenêtre
     if ((position.x - radius.x < 0 || position.x + radius.x > windowSize.x - 10)) {
+        // Collision avec le bord gauche ou droit, inversez la composante x de la vitesse
+        //direction.x = -direction.x;
         updateDirection(1);
 
     }
@@ -97,20 +105,20 @@ void GameObject::checkCWB(const sf::Vector2u& windowSize) {
     }
 }
 
-void GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
+std::vector<sf::FloatRect> GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
 {
-
+    std::vector<sf::FloatRect> collidedRectangles;
     for (const sf::FloatRect& rect : rectanglesVector)
     {
-
         if (Forms->getGlobalBounds().intersects(rect))
         {
+            collidedRectangles.push_back(rect);
             updateDirection(3);
-
         }
     }
-
+    return collidedRectangles;
 }
+
 
 void GameObject::updatePosition()
 {
@@ -134,8 +142,8 @@ void GameObject::updateDirection(int typeColision)
         direction.y = -direction.y;
         break;
     case 3:
-        direction.x = 7.f * (std::cos(newRadians) + 0.1f);
-        direction.y = 4.f * (std::sin(newRadians) + 0.1f);
+        direction.x = speed * (std::cos(newRadians));
+        direction.y = speed * (std::sin(newRadians));
         break;
     default:
         break;
