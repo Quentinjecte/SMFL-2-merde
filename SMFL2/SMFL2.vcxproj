@@ -138,15 +138,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="brique.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="SMFL2.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="TuesCanon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="brique.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="test.h" />
+    <ClInclude Include="TuesCanon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
