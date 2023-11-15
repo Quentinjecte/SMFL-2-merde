@@ -16,3 +16,10 @@ void GameManager::moveRL(GameObject& gameObject) {
 bool GameManager::isKeyPressed(sf::Keyboard::Key key) {
     return sf::Keyboard::isKeyPressed(key);
 }
+
+std::vector<sf::FloatRect> GameManager::balleColisionBrique(GameObject balle, std::vector<sf::FloatRect> grillesBriques) //return tableau de brique
+{
+    Brique brique;
+    std::vector<sf::FloatRect> collidedRectangles = balle.checkCWS(grillesBriques);
+    return collidedRectangles;
+}

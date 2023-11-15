@@ -3,21 +3,16 @@ Brique::Brique()
 {
 }
 
-void Brique::createBrique(sf::RenderWindow& window) {
+std::vector<sf::FloatRect> Brique::createGrilleBrique(sf::RenderWindow& window) {
     // Initialisation de la grille
-
-
-    srand(time(0));
-
-    const int sizex = 100;
-    const int sizey = 40;
-    int ecartx = 125;
-    int ecarty = 50;
+   
+    const int sizex = 50;
+    const int sizey = 20;
+    int ecartx = 75;
+    int ecarty = 35;
 
     const int NBligne = window.getSize().y / (sizey + ecarty);
     const int NBcol = window.getSize().x / (sizex + ecartx);
-
-	
 
     for (int i = 1; i < NBligne + 1; ++i) {
         for (int y = 1; y < NBcol + 1; ++y) {
@@ -28,11 +23,11 @@ void Brique::createBrique(sf::RenderWindow& window) {
 				GameObject brique(ecartx * i, ecarty * y, sizey, sizex, sf::Color::Red);
 				sf::FloatRect _brique = brique.getRect();
 				hp.push_back(couleur);
-				
-                rectanglesVector.push_back(_brique);
+                this->rectanglesVector.push_back(_brique);
             }
         }
     }
+    return rectanglesVector;
 }
 
 void Brique::drawGrille(sf::RenderWindow& window) {
@@ -40,26 +35,26 @@ void Brique::drawGrille(sf::RenderWindow& window) {
         sf::RectangleShape shape(sf::Vector2f(rect.width, rect.height));
         shape.setPosition(rect.left, rect.top);
         window.draw(shape);
+        //std::cout << shape.getPosition().x << std::endl;
     }
 }
 
-void Brique::deleteBrique(sf::RenderWindow& window, std::vector<sf::FloatRect> rectanglesInCollision) {
+void Brique::deleteBrique(std::vector<sf::FloatRect> grillesBriques, sf::RenderWindow& window) {
 
-   
-    std::vector<sf::FloatRect> collidedRectangles = balle.checkCWS(rectanglesVector);
-    rectanglesInCollision.clear(); // Effacer les anciens rectangles en collision
-
+    std::vector<sf::FloatRect> rectanglesInCollision;
     // Identifier les rectangles en collision
     for (const auto& rect : rectanglesVector) {
-        for (const auto& rectC : collidedRectangles) {
-            if (rectC == rect) {
+        for (const auto& rectC : grillesBriques) {
+            if (rect == rectC) {
                 rectanglesInCollision.push_back(rect);
+                
                 break; // Sortir de la boucle interne, le rectangle a été trouvé
             }
         }
     }
 
     for (size_t i = 0; i < rectanglesVector.size(); ++i) {
+        std::cout << "couleur ?" << std::endl;
         sf::RectangleShape shape(sf::Vector2f(rectanglesVector[i].width, rectanglesVector[i].height));
         shape.setPosition(rectanglesVector[i].left, rectanglesVector[i].top);
         int ptsVie = hp[i];
@@ -79,23 +74,19 @@ void Brique::deleteBrique(sf::RenderWindow& window, std::vector<sf::FloatRect> r
                 if (ptsVie == 1) {
                     isInCollision = true;
                     shape.setFillColor(sf::Color::Red);
-
                 }
                 break;
             }
         }
 
         if (isInCollision) {
-            shape.setPosition(-100, -100);
-            rectanglesVector[i].left = -100;
-            rectanglesVector[i].top = -100;
+            shape.setPosition(-200, -200);
+            rectanglesVector[i].left = -200;
+            rectanglesVector[i].top = -200;
         }
-
-        balle.checkCWS(rectanglesVector);
         window.draw(shape);
     }
 }
-
 
 sf::Color Brique::couleurHP(int hp) {
 	switch (hp) {
@@ -112,4 +103,47 @@ sf::Color Brique::couleurHP(int hp) {
     case 0:
         return sf::Color::White;
 	}
+}
+
+
+//pour après
+void Brique::infiniteMode(sf::RenderWindow& window)
+{
+    srand(time(0));
+
+    const int sizex = 50;
+    const int sizey = 20;
+    int ecartx = 75;
+    int ecarty = 35;
+
+    const int NBligne = window.getSize().y / (sizey + ecarty);
+    const int NBcol = window.getSize().x / (sizex + ecartx);
+
+    // Vérifier si la ligne du bas est détruite
+        bool isBottomLineDestroyed = true;
+    for (int i = 0; i < NBcol; ++i) {
+        if (rectanglesVector[i].width != 0 && rectanglesVector[i].height != 0) {
+            isBottomLineDestroyed = false;
+            break;
+        }
+    }
+
+    // Si la ligne du bas est détruite, déplacer toutes les lignes d'un cran vers le bas
+    if (isBottomLineDestroyed) {
+        for (int i = 0; i < NBcol * (NBligne - 1); ++i) {
+            rectanglesVector[i] = rectanglesVector[i + NBcol];
+        }
+
+        // Ajouter une nouvelle ligne en haut
+        for (int i = NBcol * (NBligne - 1); i < NBcol * NBligne; ++i) {
+            int j = rand() % 10 + 0;
+            if (j < 5) {
+                int couleur = rand() % 5 + 1;
+                GameObject brique(ecartx * (i % NBcol), ecarty * (i / NBcol), sizey, sizex, sf::Color::Red);
+                sf::FloatRect _brique = brique.getRect();
+                hp.push_back(couleur);
+                rectanglesVector[i] = _brique;
+            }
+        }
+    }
 }

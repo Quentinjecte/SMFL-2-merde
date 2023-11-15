@@ -15,7 +15,7 @@ private:
 
 public:
 
-	sf::Shape* Forms;
+	sf::Shape* Forms = nullptr;
 
 	GameObject();
 	GameObject(int _x, int _y, int _h, int _w, sf::Color); //rectangle

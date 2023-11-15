@@ -149,7 +149,7 @@ void rectanglesEtDeuxCerclesEnMouvement(sf::RenderWindow& window) {
 void drawHalfGrid(sf::RenderWindow& window) {
 	
 	Brique grille;
-	grille.createBrique(window);
+	grille.createGrilleBrique(window);
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -167,11 +167,12 @@ void drawHalfGrid(sf::RenderWindow& window) {
 
 void HP(sf::RenderWindow& window) {
 
-	Brique grille;
-	grille.createBrique(window);
 
-	GameObject Circle(0, 0, 10, sf::Vector2f(1.f, 1.f), 5, sf::Color::Red);
-	std::vector<sf::FloatRect> rectanglesInCollision;
+	GameManager manager;
+	Brique briqueCreate;
+	std::vector<sf::FloatRect> grillesBriques = briqueCreate.createGrilleBrique(window);
+
+	GameObject Circle(0, 0, 10, sf::Vector2f(1.0f, 1.0f), 2, sf::Color::Red);
 
 
 	while (window.isOpen()) {
@@ -184,9 +185,13 @@ void HP(sf::RenderWindow& window) {
 
 		window.clear();
 
-		grille.deleteBrique(window, rectanglesInCollision);
+		briqueCreate.drawGrille(window);
+		
+		std::vector<sf::FloatRect> _grillesBriques = manager.balleColisionBrique(Circle, grillesBriques);
+		briqueCreate.deleteBrique(_grillesBriques, window);
 
 		Circle.updatePosition();
+		
 		Circle.checkCWB(window.getSize());
 		Circle.draw(window);
 		

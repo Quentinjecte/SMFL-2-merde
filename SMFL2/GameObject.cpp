@@ -43,7 +43,7 @@ GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _
 GameObject::~GameObject()
 {
     // Lib�ration des ressources, si n�cessaire
-    delete Forms;
+
 
 }
 
@@ -108,17 +108,21 @@ void GameObject::checkCWB(const sf::Vector2u& windowSize) {
 std::vector<sf::FloatRect> GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
 {
     std::vector<sf::FloatRect> collidedRectangles;
+
+    //std::cout << rectanglesVector.capacity() << std::endl;
+
     for (const sf::FloatRect& rect : rectanglesVector)
     {
         if (Forms->getGlobalBounds().intersects(rect))
         {
+           // std::cout << "oui" << std::endl;
             collidedRectangles.push_back(rect);
             updateDirection(3);
         }
     }
+    //std::cout << collidedRectangles.capacity() << std::endl;
     return collidedRectangles;
 }
-
 
 void GameObject::updatePosition()
 {
