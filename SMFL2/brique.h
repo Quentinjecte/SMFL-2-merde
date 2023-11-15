@@ -9,8 +9,6 @@ public:
 
     void createBrique(sf::RenderWindow& window);
 
-
-
     void drawGrille(sf::RenderWindow& window); // Fonction pour dessiner la grille
    
     void deleteBrique(sf::RenderWindow& window, std::vector<sf::FloatRect> rectanglesInCollision);

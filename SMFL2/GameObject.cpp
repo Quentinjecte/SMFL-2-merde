@@ -5,12 +5,13 @@ GameObject::GameObject()
 {
 }
 
-GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color)
+GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color _color)
 {
 
     Forms = new sf::RectangleShape(sf::Vector2f(_w, _h));
     Forms->setPosition(_x, _y);
     Forms->setRotation(angle);
+    Forms->setFillColor(_color);
 
     x = _x;
     y = _y;

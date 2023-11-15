@@ -143,14 +143,14 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="SMFL2.cpp" />
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="TuesCanon.cpp" />
+    <ClCompile Include="Canon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="brique.h" />
+    <ClInclude Include="Canon.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="test.h" />
-    <ClInclude Include="TuesCanon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
