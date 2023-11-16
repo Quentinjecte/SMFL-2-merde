@@ -1,6 +1,5 @@
 #include "./GameManager.h"
 
-
 void GameManager::moveRL(GameObject& gameObject) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
  
@@ -21,4 +20,11 @@ bool GameManager::isButtonPressed(sf::Mouse::Button but )
 {
     return sf::Mouse::isButtonPressed(but);
     
+}
+
+std::vector<sf::FloatRect> GameManager::balleColisionBrique(GameObject balle, std::vector<sf::FloatRect> grillesBriques) //return tableau de brique
+{
+    Brique brique;
+    std::vector<sf::FloatRect> collidedRectangles = balle.checkCWS(grillesBriques, balle);
+    return collidedRectangles;
 }

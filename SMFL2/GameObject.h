@@ -32,7 +32,7 @@ public:
 
 	void checkCWB(const sf::Vector2u& windowSize);
 
-	std::vector<sf::FloatRect> checkCWS(std::vector<sf::FloatRect>& rectanglesVector);
+	std::vector<sf::FloatRect> checkCWS(std::vector<sf::FloatRect>& rectanglesVector, GameObject balle);
 
 	void updatePosition();
 
@@ -48,7 +48,6 @@ public:
 
 	float getEndX() const;
 	
-	float getEndY() const;
-	
+	float getEndY() const;	
 };
 

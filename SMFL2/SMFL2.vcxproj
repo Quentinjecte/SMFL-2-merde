@@ -71,9 +71,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Askeladd\source\repos\Quentinjecte\SMFL-2-merde\SFML-2.6.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Askeladd\source\repos\Quentinjecte\SMFL-2-merde\SFML-2.6.1\lib;$(IncludePath)</LibraryPath>
-    <PublicIncludeDirectories>$(ProjectDir)include</PublicIncludeDirectories>
+    <IncludePath>C:\Users\Faoll\source\repos\sfmlRaté\SMFL-2-merde\SFML-2.6.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\Faoll\source\repos\sfmlRaté\SMFL-2-merde\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
+    <PublicIncludeDirectories>C:\Users\Faoll\source\repos\sfmlRaté\SMFL-2-merde\SFML-2.6.1\include</PublicIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\Askeladd\source\repos\Quentinjecte\SMFL-2-merde\SFML-2.6.1\include</IncludePath>
