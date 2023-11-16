@@ -18,6 +18,7 @@ private:
 public:
 
     ~Ball();
+    Ball();
 
     Ball(int _x, int _y, int _r, sf::Vector2f _direction, float _speed, sf::Color _color);
 

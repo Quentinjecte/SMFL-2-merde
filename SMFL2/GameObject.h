@@ -32,8 +32,6 @@ public:
 
 	int checkCWB(const sf::Vector2u& windowSize);
 
-	int checkCWS(std::vector<sf::FloatRect>& rectanglesVector);
-
 	const sf::FloatRect& getRect() const;
 
 	void updateEndPosition();

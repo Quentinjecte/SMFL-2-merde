@@ -24,6 +24,9 @@ GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color _color)
 GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction, float _speed, sf::Color _color)
 {
     Forms = new sf::CircleShape(_r);
+	Forms->setPosition(_x, _y);
+	Forms->setRotation(angle);
+	Forms->setFillColor(_color);
 
     updateEndPosition();
 }
@@ -89,19 +92,6 @@ int GameObject::checkCWB(const sf::Vector2u& windowSize) {
         return 4;
     }
     return 0;
-}
-
-int GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
-{
-    std::vector<sf::FloatRect> collidedRectangles;
-    for (const sf::FloatRect& rect : rectanglesVector)
-    {
-        if (Forms->getGlobalBounds().intersects(rect))
-        {
-            collidedRectangles.push_back(rect);
-            return 3;
-        }
-    }
 }
 
 const sf::CircleShape& GameObject::getCircle() const {

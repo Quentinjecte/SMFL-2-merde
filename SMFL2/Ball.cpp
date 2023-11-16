@@ -4,6 +4,10 @@ Ball::~Ball()
 {
 }
 
+Ball::Ball()
+{
+}
+
 Ball::Ball(int _x, int _y, int _r, sf::Vector2f _direction, float _speed, sf::Color _color) : GameObject(_x, _y, _r, _direction, _speed, _color)
 {
     Forms->setPosition(_x, _y);
@@ -51,27 +55,27 @@ void Ball::updatePosition()
 
 void Ball::updateDirection(int typeColision)
 {
-    typeColision = checkCWS();
-    float incidentAngle = std::atan2(direction.y, direction.x) * (180.0f / 3.14159265f);
-    float reflectionAngle = 180.0f - incidentAngle;
-    float newRadians = reflectionAngle * (3.14159265f / 180.0f);
+    //typeColision = checkCWS();
+    //float incidentAngle = std::atan2(direction.y, direction.x) * (180.0f / 3.14159265f);
+    //float reflectionAngle = 180.0f - incidentAngle;
+    //float newRadians = reflectionAngle * (3.14159265f / 180.0f);
 
-    switch (typeColision)
-    {
-    case 1:
-        direction.x = -direction.x;
-        break;
-    case 2:
-        direction.y = -direction.y;
-        break;
-    case 3:
-        direction.x = speed * (std::cos(newRadians));
-        direction.y = speed * (std::sin(newRadians));
-        break;
-    default:
-        break;
-    }
-    Forms->move(direction);
+    //switch (typeColision)
+    //{
+    //case 1:
+    //    direction.x = -direction.x;
+    //    break;
+    //case 2:
+    //    direction.y = -direction.y;
+    //    break;
+    //case 3:
+    //    direction.x = speed * (std::cos(newRadians));
+    //    direction.y = speed * (std::sin(newRadians));
+    //    break;
+    //default:
+    //    break;
+    //}
+    //Forms->move(direction);
 
 }
 
