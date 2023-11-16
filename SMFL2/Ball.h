@@ -9,9 +9,15 @@ class Ball : public GameObject
 private:
     GameObject gameObject;
 
+    sf::Vector2f direction;
+
+    int x, y, r;
+
+    float speed, angle;
 
 public:
-    Ball();
+
+    ~Ball();
 
     Ball(int _x, int _y, int _r, sf::Vector2f _direction, float _speed, sf::Color _color);
 
@@ -25,5 +31,6 @@ public:
 
     void setDirection(const sf::Vector2f& newDirection);
 
+    void Teasing();
     // ... autres membres de la classe
 };

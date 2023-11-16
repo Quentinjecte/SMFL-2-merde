@@ -4,11 +4,10 @@
 #include "GameObject.h"
 #include <stdlib.h>
 #include "GameManager.h"
-#include "test.h"
+#include "Ball.h"
 
 int main()
 {
-
     // Initialisation de sprite, texture, velocity, acceleration, etc.
     //Creation de la fenetre
     sf::RenderWindow window;
@@ -27,7 +26,7 @@ int main()
 
     GameObject Rect2(50, 100, 100, 20, sf::Color::Green);
 
-    GameObject Circle(Canon.getEndX(), Canon.getEndY(), 10, sf::Vector2f(-1.f, -1.f), 10, sf::Color::Red);
+    Ball Bullet(Canon.getEndX(), Canon.getEndY(), 10, sf::Vector2f(-1.f, -1.f), 10, sf::Color::Red);
 
     while (window.isOpen())
     {
@@ -43,8 +42,8 @@ int main()
                 if (!ball)
                 {
                     float angleRadians = Canon.Forms->getRotation() * 3.14159265358979323846 / 180.0;
-                    Circle.setDirection(sf::Vector2f(cos(angleRadians), sin(angleRadians)));
-                    Circle.Forms->setPosition(Canon.getEndX() - 10, Canon.getEndY() - 20);
+                    Bullet.setDirection(sf::Vector2f(cos(angleRadians), sin(angleRadians)));
+                    Bullet.Forms->setPosition(Canon.getEndX() - 10, Canon.getEndY() - 20);
                     ball = true;
                 }
             }
@@ -64,13 +63,13 @@ int main()
 
         if (ball == true)
         {
-            Circle.updatePosition();
+            Bullet.updatePosition();
         }
 
-        Circle.draw(window);
+        Bullet.DrawB(window);
 
         Rect2.draw(window);
-        Circle.checkCWB(window.getSize()); 
+        //Bullet.Teasing();
 
         window.display();
     }

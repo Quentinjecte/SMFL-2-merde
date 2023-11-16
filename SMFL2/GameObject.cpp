@@ -24,21 +24,8 @@ GameObject::GameObject(int _x, int _y, int _h, int _w, sf::Color _color)
 GameObject::GameObject(int _x, int _y, float _r, sf::Vector2f _direction,float _speed, sf::Color _color)
 {
     Forms = new sf::CircleShape(_r);
-    Forms->setPosition(_x, _y);
-    Forms->setFillColor(_color);
-    direction = _direction;
-    speed = _speed;
-
-    direction = _direction;
-    speed = _speed;
-
-    x = _x;
-    y = _y;
-    r = _r;
 
     updateEndPosition();
-
-
 }
 
 GameObject::~GameObject()
@@ -64,17 +51,6 @@ void GameObject::move(const sf::Vector2f& direction)
     Forms->move(direction);
 }
 
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-void GameObject::setDirection(const sf::Vector2f& newDirection) {
-    direction = newDirection;
-}
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-
 void GameObject::rotate(sf::RenderWindow& window)
 {
     //Set the origine
@@ -99,26 +75,26 @@ int GameObject::checkCWB(const sf::Vector2u& windowSize) {
     // Vérifiez la collision avec les bords de la fenêtre
     if (position.x - radius.x < 0) {
         // Collision avec le bord gauche ou droit, inversez la composante x de la vitesse
-        updateDirection(1);
+        return 1;
     }
 
     if (position.x + radius.x > windowSize.x - 10)
     {
-        updateDirection(1);
+        return 2;
     }
 
     if (position.y - radius.y < 0) {
-        updateDirection(2);
+        return 3;
     }
 
     if (position.y + radius.y > windowSize.y + 30)
     {
-        //Appeller dans Ball pour supp la ball
+        return 4;
     }
     return 0;
 }
 
-std::vector<sf::FloatRect> GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
+int GameObject::checkCWS(std::vector<sf::FloatRect>& rectanglesVector)
 {
     std::vector<sf::FloatRect> collidedRectangles;
     for (const sf::FloatRect& rect : rectanglesVector)
@@ -126,49 +102,10 @@ std::vector<sf::FloatRect> GameObject::checkCWS(std::vector<sf::FloatRect>& rect
         if (Forms->getGlobalBounds().intersects(rect))
         {
             collidedRectangles.push_back(rect);
-            updateDirection(3);
+            return 3;
         }
     }
-    return collidedRectangles;
 }
-
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-void GameObject::updatePosition()
-{
-    sf::Vector2f _move = direction * speed;
-    Forms->move(_move);
-}
-
-void GameObject::updateDirection(int typeColision)
-{
-
-    float incidentAngle = std::atan2(direction.y, direction.x) * (180.0f / 3.14159265f);
-    float reflectionAngle = 180.0f - incidentAngle;
-    float newRadians = reflectionAngle * (3.14159265f / 180.0f);
-
-    switch (typeColision)
-    {
-    case 1:
-        direction.x = -direction.x;
-        break;
-    case 2:
-        direction.y = -direction.y;
-        break;
-    case 3:
-        direction.x = speed * (std::cos(newRadians));
-        direction.y = speed * (std::sin(newRadians));
-        break;
-    default:
-        break;
-    }
-    Forms->move(direction);
-    
-}
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-/*-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
 const sf::CircleShape& GameObject::getCircle() const {
     return *static_cast<sf::CircleShape*>(Forms);
