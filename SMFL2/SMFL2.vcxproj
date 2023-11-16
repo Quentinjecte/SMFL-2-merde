@@ -71,9 +71,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\Faoll\source\repos\sfmlRaté\SMFL-2-merde\SFML-2.6.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Faoll\source\repos\sfmlRaté\SMFL-2-merde\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
-    <PublicIncludeDirectories>C:\Users\Faoll\source\repos\sfmlRaté\SMFL-2-merde\SFML-2.6.1\include</PublicIncludeDirectories>
+    <IncludePath>C:\Users\qrenaud\source\repos\Quentinjecte\SMFL-2-merde\SFML-2.6.1\include;C:\Users\Askeladd\source\repos\Quentinjecte\SMFL-2-merde\SFML-2.6.1\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\qrenaud\source\repos\Quentinjecte\SMFL-2-merde\SFML-2.6.1\lib;$(LibraryPath)</LibraryPath>
+    <PublicIncludeDirectories>$(ProjectDir)include</PublicIncludeDirectories>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Users\Askeladd\source\repos\Quentinjecte\SMFL-2-merde\SFML-2.6.1\include</IncludePath>
@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ball.cpp" />
     <ClCompile Include="brique.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="Canon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ball.h" />
     <ClInclude Include="brique.h" />
     <ClInclude Include="Canon.h" />
     <ClInclude Include="GameManager.h" />

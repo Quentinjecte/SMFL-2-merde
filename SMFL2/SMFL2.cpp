@@ -4,11 +4,10 @@
 #include "GameObject.h"
 #include <stdlib.h>
 #include "GameManager.h"
-#include "test.h"
+#include "Ball.h"
 
 int main()
 {
-
     // Initialisation de sprite, texture, velocity, acceleration, etc.
     //Creation de la fenetre
     sf::RenderWindow window;
@@ -20,38 +19,35 @@ int main()
     //drawHalfGrid(window);
     HP(window);
     //Design canon
-    //GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(96,96,96,255)); // Construis le canon
-    //GameObject Barillé1(_Fw / 2, _Fh, 20, 85, sf::Color(255,0,0,255)); // Construis le canon
-    //GameObject Barillé2(_Fw / 2, _Fh, 3, 75, sf::Color(255,0,0,255)); // Construis le canon
-    //GameObject BaseCI(_Fw / 2 - 25, _Fh- 30, 25, sf::Vector2f(0, 0), 0, sf::Color(0, 128, 255, 255));// Construis le canon
-    //GameObject BaseCO(_Fw / 2 - 20, _Fh - 25, 20, sf::Vector2f(0, 0), 0, sf::Color(32, 32, 32, 255));// Construis le canon
+    GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(96,96,96,255)); // Construis le canon
+    GameObject Barillé1(_Fw / 2, _Fh, 20, 85, sf::Color(255,0,0,255)); // Construis le canon
+    GameObject Barillé2(_Fw / 2, _Fh, 3, 75, sf::Color(255,0,0,255)); // Construis le canon
+    GameObject BaseCI(_Fw / 2 - 25, _Fh- 30, 25, sf::Vector2f(0, 0), 0, sf::Color(50, 120, 250, 255));// Construis le canon
+    GameObject BaseCO(_Fw / 2 - 20, _Fh - 25, 20, sf::Vector2f(0, 0), 0, sf::Color(32, 32, 32, 255));// Construis le canon
 
- 
+    GameObject Rect2(50, 100, 100, 20, sf::Color::Green);
+
+    Ball Bullet(Canon.getEndX(), Canon.getEndY(), 10, sf::Vector2f(-1.f, -1.f), 10, sf::Color::Red);
 
     //GameObject Rect2(50, 100, 100, 20, sf::Color::Green);
 
-    //GameObject Circle(Canon.getEndX(), Canon.getEndY(), 10, sf::Vector2f(-1.f, -1.f), 10, sf::Color::Red);
-
-    //while (window.isOpen())
-    //{
-
-    //    sf::Event event;
-    //    while (window.pollEvent(event))
-    //    {
-    //        if (event.type == sf::Event::Closed)
-    //            window.close();
-    //            
-    //        if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
-    //        {
-    //            if (!ball)
-    //            {
-    //                float angleRadians = Canon.Forms->getRotation() * 3.14159265358979323846 / 180.0;
-    //                Circle.setDirection(sf::Vector2f(cos(angleRadians), sin(angleRadians)));
-    //                Circle.Forms->setPosition(Canon.getEndX() - 10, Canon.getEndY() - 20);
-    //                ball = true;
-    //            }
-    //        }
-    //    }
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+                
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
+            {
+                if (!ball)
+                {
+                    float angleRadians = Canon.Forms->getRotation() * 3.14159265358979323846 / 180.0;
+                    Bullet.setDirection(sf::Vector2f(cos(angleRadians), sin(angleRadians)));
+                    Bullet.Forms->setPosition(Canon.getEndX() - 10, Canon.getEndY() - 20);
+                    ball = true;
+                }
+            }
+        }
 
     //    window.clear();
 
@@ -65,15 +61,15 @@ int main()
     //    BaseCO.draw(window);
     //    Barillé2.draw(window);
 
-    //    if (ball == true)
-    //    {
-    //        Circle.updatePosition();
-    //    }
+        if (ball == true)
+        {
+            Bullet.updatePosition();
+        }
 
-    //    Circle.draw(window);
+        Bullet.DrawB(window);
 
-    //    Rect2.draw(window);
-    //    Circle.checkCWB(window.getSize()); 
+        Rect2.draw(window);
+        //Bullet.Teasing();
 
     //    window.display();
     //}

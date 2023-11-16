@@ -11,9 +11,11 @@ private:
 
 	float endX, endY, angle, speed;
 
+
 	sf::Vector2f direction;
 
 public:
+	bool Passage = false;
 
 	sf::Shape* Forms;
 
@@ -24,23 +26,15 @@ public:
 
 	void draw(sf::RenderWindow& window);
 
-	void update(float deltaTime);
-
 	void move(const sf::Vector2f& direction);
 
 	void rotate(sf::RenderWindow& window);
 
-	void checkCWB(const sf::Vector2u& windowSize);
+	int checkCWB(const sf::Vector2u& windowSize);
 
-	std::vector<sf::FloatRect> checkCWS(std::vector<sf::FloatRect>& rectanglesVector, GameObject balle);
-
-	void updatePosition();
-
-	void setDirection(const sf::Vector2f& newDirection);
+	int checkCWS(std::vector<sf::FloatRect>& rectanglesVector);
 
 	const sf::FloatRect& getRect() const;
-
-	void updateDirection(int typeColision);
 
 	void updateEndPosition();
 
