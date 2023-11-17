@@ -369,3 +369,7 @@ FodyWeavers.xsd
 /SMFL2/SMFL2.cpp
 /SMFL2/SMFL2.vcxproj
 /SMFL2/SMFL2.vcxproj.filters
+/SMFL2/brique.cpp
+/SMFL2/brique.h
+/SMFL2/GameManager.h
+/SMFL2/GameObject.cpp
