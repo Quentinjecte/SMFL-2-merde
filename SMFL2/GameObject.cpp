@@ -98,9 +98,9 @@ const sf::CircleShape& GameObject::getCircle() const {
 	return *static_cast<sf::CircleShape*>(Forms);
 }
 
-const sf::FloatRect& GameObject::getRect() const {
-	return static_cast<sf::RectangleShape*>(Forms)->getGlobalBounds();
-}
+//const sf::FloatRect& GameObject::getRect() const {
+//	return static_cast<sf::RectangleShape*>(Forms)->getGlobalBounds();
+//}
 
 float GameObject::getEndX() const
 {

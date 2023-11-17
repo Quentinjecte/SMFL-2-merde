@@ -60,23 +60,24 @@ int main()
             Bullet.updatePosition();
 
             // Gestion des collisions avec les briques et les bords
-            int collisionType = Master.checkCWS(Bullet, window);
+            //int collisionType = Master.checkCWS(Bullet, window);
+           
 
             // Mettez à jour la dernière collision dans la balle
-            Bullet.setLastCollisionType(collisionType);
+           // Bullet.setLastCollisionType(collisionType);
 
             // Gestion des collisions avec les briques
             Master.handleBriqueCollision(Bullet, Master.getBriques());
             Bullet.collisionSide(window);
 
             // Vérification si la balle est sortie de l'écran ou a touché une brique
-            if (collisionType == 4)
+           /* if (collisionType == 4)
             {
                 ball = false;
                 std::cout << "Collision!" << std::endl;
-            }
+            }*/
         }
-
+        Master.checkCWB(window, Bullet);
 
         // Dessiner les briques
         Master.drawGrille(window);
@@ -84,7 +85,7 @@ int main()
         // Dessiner le canon et la balle
         Canon.draw(window);
         Bullet.DrawB(window);
-
+    
         window.display();
     }
 

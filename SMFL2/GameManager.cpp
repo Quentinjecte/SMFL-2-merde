@@ -37,30 +37,54 @@ void GameManager::BulletColisionBrique(Ball Bullet, std::vector<sf::FloatRect> g
     //int collidedRectangles = checkCWS();
 }
 
+
+
+
+void GameManager::checkCWB(const sf::RenderWindow& windowSize, Ball bullet) {
+    // Récupérez la position actuelle de la balle
+    sf::Vector2f position = bullet.getPosition();
+    //sf::Vector2f radius = bullet.getCircle().getRadius();
+    sf::Vector2f direction = bullet.getDirection();
+
+    // Vérifiez la collision avec les bords de la fenêtre
+    if ((position.x - 10 < 0 || position.x + 10 > windowSize.getSize().x - 10)) {
+        // Collision avec le bord gauche ou droit, inversez la composante x de la vitesse
+        direction.x = -direction.x;
+        std::cout << "coll doirte ou gauche" << std::endl;
+
+       // updateDirection(1);
+
+    }
+   if (position.y - 10 < 0 || position.y + 10 > windowSize.getSize().y - 10) {
+        bullet.updateDirection(2);
+    }
+}
+
+
 int GameManager::checkCWS(const Ball& bullet, sf::RenderWindow& window)
 {
-    for (const Brique& brique : briques)
-    {
-        if (bullet.getRect().intersects(brique.getRect()))
-        {
-            // Gérer la collision avec la brique
-            const_cast<Brique&>(brique).handleCollision();
-            Bullet.setLastCollisionType(3);
-            return 3; // Collision avec une brique
-        }
-    }
+    //for (const Brique& brique : briques)
+    //{
+    //    if (bullet.getRect().intersects(brique.getRect()))
+    //    {
+    //        // Gérer la collision avec la brique
+    //        const_cast<Brique&>(brique).handleCollision();
+    //        Bullet.setLastCollisionType(3);
+    //        return 3; // Collision avec une brique
+    //    }
+    //}
 
-    // Vérifier si la balle touche les bords de la fenêtre
-    sf::Vector2u windowSize = window.getSize();
-    sf::Vector2f bulletPos = Bullet.getPosition();
+    //// Vérifier si la balle touche les bords de la fenêtre
+    //sf::Vector2u windowSize = window.getSize();
+    //sf::Vector2f bulletPos = Bullet.getPosition();
 
-    if (bulletPos.x < 0 || bulletPos.x > windowSize.x || bulletPos.y < 0 || bulletPos.y > windowSize.y)
-    {
-        Bullet.setLastCollisionType(4); // Collision avec les bords
-        return 4;
-    }
+    //if (bulletPos.x < 0 || bulletPos.x > windowSize.x || bulletPos.y < 0 || bulletPos.y > windowSize.y)
+    //{
+    //    Bullet.setLastCollisionType(4); // Collision avec les bords
+    //    return 4;
+    //}
 
-    // Pas de collision avec les briques ou les bords
+    //// Pas de collision avec les briques ou les bords
     return 0;
 }
 
@@ -79,7 +103,7 @@ void GameManager::createGrilles(sf::RenderWindow& window)
             int j = rand() % 10 + 0;
             if (j < 5)
             {
-                Brique brique(y *  Brique::ecartX, i * Brique::ecartY, Brique::sizeY, Brique::sizeX, 2);
+                Brique brique(y * Brique::ecartX, i * Brique::ecartY, Brique::sizeY, Brique::sizeX, 2);
                 briques.push_back(brique);
             }
         }
@@ -97,17 +121,17 @@ void GameManager::drawGrille(sf::RenderWindow& window)
 
 void GameManager::handleBriqueCollision(Ball& bullet, const std::vector<Brique>& briques)
 {
-    for (const Brique& brique : briques)
-    {
-        if (bullet.getRect().intersects(brique.getRect()))
-        {
-            // Gérer la collision avec la brique
-            // Utilisez les méthodes appropriées de GameObject et Brique pour effectuer les changements nécessaires
-           
-            // Vous pouvez également utiliser const_cast si nécessaire pour enlever la constante
-            const_cast<Brique&>(brique).handleCollision();
-        }
-    }
+    //for (const Brique& brique : briques)
+    //{
+    //    if (bullet.getRect().intersects(brique.getRect()))
+    //    {
+    //        // Gérer la collision avec la brique
+    //        // Utilisez les méthodes appropriées de GameObject et Brique pour effectuer les changements nécessaires
+    //       
+    //        // Vous pouvez également utiliser const_cast si nécessaire pour enlever la constante
+    //        const_cast<Brique&>(brique).handleCollision();
+    //    }
+    //}
 }
 
 void GameManager::destroyBrique(Brique& brique, std::vector<Brique>& briques)

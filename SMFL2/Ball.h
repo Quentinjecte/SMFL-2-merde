@@ -41,6 +41,7 @@ public:
     void setLastCollisionType(int type);
     int getLastCollisionType() const;
     sf::Vector2f getPosition() const;
+    float getRadius() const;
     // ... autres membres de la classe
    
 

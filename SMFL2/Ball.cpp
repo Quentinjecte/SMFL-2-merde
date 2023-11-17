@@ -61,13 +61,13 @@ void Ball::updateDirection(int typeColision)
 	// Obtenez la direction actuelle
 	sf::Vector2f currentDirection = getDirection();
 
-	std::cout << "Current Direction: (" << currentDirection.x << ", " << currentDirection.y << ")" << std::endl;
+	/*std::cout << "Current Direction: (" << currentDirection.x << ", " << currentDirection.y << ")" << std::endl;*/
 	switch (typeColision)
 	{
 	case 1:
 		// Collision côté gauche ou droit, inversez la composante x de la direction
 		currentDirection.x = -currentDirection.x;
-		std::cout << "Collision côté gauche ou droit. New Direction: (" << currentDirection.x << ", " << currentDirection.y << ")" << std::endl;
+		//std::cout << "Collision côté gauche ou droit. New Direction: (" << currentDirection.x << ", " << currentDirection.y << ")" << std::endl;
 		break;
 	case 2:
 		// Collision côté haut, inversez la composante y de la direction
@@ -115,6 +115,7 @@ sf::Vector2f Ball::getPosition() const
 	// Utilisez la fonction getPosition de la forme (Forms) pour obtenir la position actuelle
 	return Forms->getPosition();
 }
+
 
 sf::Vector2f Ball::getDirection() const {
 	return direction;

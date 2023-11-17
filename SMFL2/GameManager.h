@@ -21,6 +21,7 @@ public:
     bool isKeyPressed(sf::Keyboard::Key key);
     bool isButtonPressed(sf::Mouse::Button but);
     void BulletColisionBrique(Ball Bullet, std::vector<sf::FloatRect> grillesBriques);
+    void checkCWB(const sf::RenderWindow& windowSize, Ball bullet);
     int checkCWS(const Ball& bullet, sf::RenderWindow& window);
     
  

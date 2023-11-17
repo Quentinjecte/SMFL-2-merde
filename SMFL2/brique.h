@@ -40,10 +40,6 @@ public:
 
     void decrementHp(int amount);
 
-
-
-    void handleCollision();
-
     bool operator==(const Brique& other) const;
 
     //void destroy(GameManager& gameManager, std::vector<Brique>& briques);

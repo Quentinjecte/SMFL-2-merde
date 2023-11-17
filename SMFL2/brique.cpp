@@ -13,9 +13,8 @@ Brique::Brique(int _x, int _y, int _h, int _w, int _hp)
 
 void Brique::createBrique(int _x, int _y, int _h, int _w)
 {
-	hp = rand() % 6;  // Modification ici
+	hp = rand() % 6;  
 
-	// Assurez-vous que Forms est de type sf::RectangleShape
 	sf::RectangleShape* rectangle = dynamic_cast<sf::RectangleShape*>(Forms);
 
 	if (rectangle)
@@ -25,6 +24,7 @@ void Brique::createBrique(int _x, int _y, int _h, int _w)
 
 		// Utilisez couleurHP pour définir la couleur en fonction des points de vie
 		rectangle->setFillColor(couleurHP(hp));
+		std::cout << hp << std::endl;
 	}
 	else
 	{
@@ -89,17 +89,6 @@ void Brique::decrementHp(int amount) {
 //{
 //	gameManager.destroyBrique(*this, briques);
 //}
-
-
-void Brique::handleCollision()
-{
-	// Gérez la collision spécifique à la brique
-	// Par exemple, vous pouvez décrémenter les points de vie ou effectuer d'autres actions nécessaires.
-	decrementHp(1);  // Décrémente les points de vie sur une collision
-
-	// Mettez à jour la couleur en fonction des nouveaux points de vie
-	updateColor();
-}
 
 bool Brique::operator==(const Brique& other) const
 {
