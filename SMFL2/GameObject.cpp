@@ -74,7 +74,7 @@ int GameObject::checkCWB(const sf::Vector2u& windowSize) {
 
     // Vérifiez la collision avec les bords de la fenêtre
     if (position.x - radius.x < 0) {
-        // Collision avec le bord gauche ou droit, inversez la composante x de la vitesse
+       
         return 1;
     }
 
@@ -111,3 +111,4 @@ float GameObject::getEndY() const
 {
 	return endY;
 }
+

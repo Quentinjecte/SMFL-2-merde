@@ -41,5 +41,8 @@ public:
 	float getEndX() const;
 	
 	float getEndY() const;	
+
+
+
 };
 

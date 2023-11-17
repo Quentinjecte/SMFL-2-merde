@@ -144,12 +144,10 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="SMFL2.cpp" />
     <ClCompile Include="test.cpp" />
-    <ClCompile Include="Canon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="brique.h" />
-    <ClInclude Include="Canon.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="test.h" />

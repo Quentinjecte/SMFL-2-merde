@@ -7,7 +7,7 @@ class Ball : public GameObject
 {
 
 private:
-    GameObject gameObject;
+    GameObject& gameObject;
 
     sf::Vector2f direction;
 
@@ -15,10 +15,13 @@ private:
 
     float speed, angle;
 
+    int lastCollisionType;
+
 public:
 
     ~Ball();
-    Ball();
+
+    Ball(GameObject& obj);
 
     Ball(int _x, int _y, int _r, sf::Vector2f _direction, float _speed, sf::Color _color);
 
@@ -33,5 +36,14 @@ public:
     void setDirection(const sf::Vector2f& newDirection);
 
     void Teasing();
+  
+    void resetPosition();
+    void setLastCollisionType(int type);
+    int getLastCollisionType() const;
+    sf::Vector2f getPosition() const;
     // ... autres membres de la classe
+   
+
+    sf::Vector2f getDirection() const;
+
 };
