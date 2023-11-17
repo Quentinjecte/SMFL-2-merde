@@ -2,10 +2,11 @@
 
 #include "GameObject.h"
 
+
 class Brique : public GameObject {
 private:
 
-    GameObject balle;
+
 
     std::vector<sf::FloatRect> rectanglesVector;
 
@@ -13,7 +14,7 @@ private:
 
     std::vector<Brique> _brique;
 
-   
+
 
 public:
     static const int sizeX = 50;
@@ -22,11 +23,11 @@ public:
     static const int ecartY = 45;
 
     Brique();  // Constructeur pour initialiser la grille
-    Brique(int _x, int _y, int _h, int _w, sf::Color _color, int _hp);
+    Brique(int _x, int _y, int _h, int _w, int _hp);
 
-    void createBrique();
+    void createBrique(int _x, int _y, int _h, int _w);
 
-    void drawB(sf::RenderWindow& window);
+    void drawB(sf::RenderWindow& window) const;
 
     //void deleteBrique(sf::RenderWindow& window, std::vector<sf::FloatRect> rectanglesInCollision, GameObject balle);
 
@@ -35,6 +36,16 @@ public:
 
     int getHp() const;
 
+    void updateColor();
+
     void decrementHp(int amount);
-  
+
+
+
+    void handleCollision();
+
+    bool operator==(const Brique& other) const;
+
+    //void destroy(GameManager& gameManager, std::vector<Brique>& briques);
+
 };
