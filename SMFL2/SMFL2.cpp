@@ -19,7 +19,11 @@ int main()
     GameManager Master;
 
     // Création du canon
-    GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(96, 96, 96, 255));
+    GameObject Canon(_Fw / 2, _Fh, 25, 75, sf::Color(96, 96, 96, 255)); // Construis le canon
+    GameObject Barillé1(_Fw / 2, _Fh, 20, 85, sf::Color(255, 0, 0, 255)); // Construis le canon
+    GameObject Barillé2(_Fw / 2, _Fh, 3, 75, sf::Color(255, 0, 0, 255)); // Construis le canon
+    GameObject BaseCI(_Fw / 2 - 25, _Fh - 30, 25, sf::Vector2f(0, 0), 0, sf::Color(50, 120, 250, 255));// Construis le canon
+    GameObject BaseCO(_Fw / 2 - 20, _Fh - 25, 20, sf::Vector2f(0, 0), 0, sf::Color(32, 32, 32, 255));// Construis le canon
 
     // Création des briques
     Master.createGrilles(window);
@@ -52,6 +56,16 @@ int main()
         Canon.rotate(window);
 
         // Déplacement du canon
+        Canon.rotate(window);
+        Barillé1.rotate(window);
+        Barillé2.rotate(window);
+
+        BaseCI.draw(window);
+        Barillé1.draw(window);
+        Canon.draw(window);
+        BaseCO.draw(window);
+        Barillé2.draw(window);
+
         Master.moveRL(Canon);
 
         if (Bullet.Bullet)
@@ -80,7 +94,6 @@ int main()
         Master.drawGrille(window);
 
         // Dessiner le canon et la balle
-        Canon.draw(window);
         Bullet.DrawB(window);
 
         window.display();
