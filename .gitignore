@@ -363,3 +363,9 @@ MigrationBackup/
 FodyWeavers.xsd
 /SMFL2/Canon.cpp
 /SMFL2/Canon.h
+/SMFL2/Ball.cpp
+/SMFL2/Ball.h
+/SMFL2/GameManager.cpp
+/SMFL2/SMFL2.cpp
+/SMFL2/SMFL2.vcxproj
+/SMFL2/SMFL2.vcxproj.filters
